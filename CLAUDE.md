@@ -78,10 +78,10 @@ Owner: Hungarian software developer / DevOps engineer living in Belgium.
   Laravel 10 + Vue 3 + Tailwind, since Dec 2023, active); portfolio site
   for their girlfriend, a photographer (2026).
 
-Still placeholders (projects are in the database now, not the lang files): the owner's name ("Your Name", in `lang/*/ui.php`
-because Hungarian puts the family name first), the email and both side
-project URLs in `config/site.php`, and the GitHub and LinkedIn URLs in
-`.env` (`SITE_GITHUB_URL`, `SITE_LINKEDIN_URL`). The
+Filled in: name (per locale in `lang/*/ui.php`, Hungarian puts the family
+name first), header name, email (`config/site.php`), GitHub and LinkedIn
+(`.env`, `SITE_GITHUB_URL` and `SITE_LINKEDIN_URL`). Still open: links for
+the projects (set in `/admin/projects`) and `public/cv.pdf`. The
 prototype's blog posts are throwaway samples and were not ported.
 
 ## Architecture (decided)
@@ -96,9 +96,10 @@ prototype's blog posts are throwaway samples and were not ported.
   the admin) override them via `App\Translation\DatabaseOverrideLoader`.
   `App\Translation\TextCatalog` decides which keys are editable.
   `php artisan texts:export` writes edits back into the files.
-- Projects are not in the lang files. They live in the `projects` table
-  (position + JSON title/meta/body per locale, empty falls back to English)
-  and are managed at `/admin/projects`.
+- Projects are personal projects only (work projects are covered under
+  Experience), and there is no separate side projects section. They live
+  in the `projects` table (position, optional url, JSON title/meta/body per
+  locale, empty falls back to English) and are managed at `/admin/projects`.
 - Auth is Fortify with login/logout only, one owner account from
   `php artisan make:owner`. No registration or password reset.
 - Hosting is Plesk, deployed by hand by the owner. No GitHub Actions and

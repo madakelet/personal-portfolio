@@ -45,7 +45,7 @@ Projects have their own page, `/admin/projects`, where they can be added,
 edited, reordered and removed. They live only in the `projects` table, not
 in the lang files, so `texts:export` does not cover them.
 
-Adding or removing a job, education entry, side project or bio paragraph
+Adding or removing a job, education entry or bio paragraph
 still means changing the English lang file (and the others, which a test
 checks).
 
@@ -56,7 +56,8 @@ vendor/bin/pint        # PHP code style
 
 ## Where things live
 
-- `config/site.php`: email and side project links.
+- `config/site.php`: email.
+- `/admin/projects`: projects and their links (database, not files).
 - `.env`: `SITE_GITHUB_URL` and `SITE_LINKEDIN_URL`.
 - `lang/{en,nl,hu}/cv.php`: the landing page copy, one file per language.
   These are the defaults; edits from the admin override them.
