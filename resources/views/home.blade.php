@@ -31,4 +31,17 @@
             @endforeach
         </ul>
     @endif
+
+    @if ($posts->isNotEmpty())
+        <h2 id="blog">{{ __('ui.sections.blog') }}</h2>
+        <ul class="dated">
+            @foreach ($posts as $post)
+                <li>
+                    <span class="d">{{ \App\Support\PostDate::full($post->published_at) }}</span>
+                    <span lang="{{ $post->locale }}"><a href="{{ route('blog.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a></span>
+                </li>
+            @endforeach
+        </ul>
+        <p><a href="{{ route('blog.index') }}">{{ __('ui.blog.all_posts') }}</a></p>
+    @endif
 </x-layout>

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 /**
  * The texts the admin can edit: every string in lang/en/{cv,ui}.php,
- * minus a few technical values (date format, OG locale). CV dates are
+ * minus a few technical values (date formats, OG locale). CV dates are
  * editable too, but as one value shared by all languages.
  */
 class TextCatalog
@@ -16,7 +16,7 @@ class TextCatalog
     public const GROUPS = ['ui', 'cv'];
 
     /** Keys that hold data, not copy. Editing them can break formatting. */
-    private const LOCKED = ['/^dates\.month$/', '/^meta\.og_locale$/'];
+    private const LOCKED = ['/^dates\.(month|day|day_short)$/', '/^meta\.og_locale$/'];
 
     /** CV dates: "YYYY" or "YYYY-MM". An empty end date means "present". */
     private const DATE = '/(^|\.)(from|to)$/';

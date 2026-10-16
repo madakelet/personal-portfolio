@@ -124,3 +124,21 @@
     .year::before { content: '// '; color: var(--accent); }
     .muted { color: var(--muted); }
 }
+
+/* Blog post bodies: Markdown output. */
+@layer components {
+    .post-body h2 { margin-top: 2.5rem; }
+    .post-body blockquote { background: var(--code-bg); border-left: 3px solid var(--accent); padding: .85rem 1.1rem; border-radius: 0 4px 4px 0; margin: 0 0 1.25rem; font-size: .97rem; }
+    .post-body blockquote p:last-child { margin-bottom: 0; }
+    .post-body ol { margin: 0 0 1rem; padding-left: 1.5rem; list-style: decimal; }
+    .post-body img { max-width: 100%; height: auto; border-radius: 4px; }
+    .post-body table { width: 100%; border-collapse: collapse; margin: 0 0 1.25rem; font-size: .95rem; }
+    .post-body th, .post-body td { text-align: left; padding: .4rem .6rem .4rem 0; border-bottom: 1px solid var(--rule); }
+    .post-body th { font-family: var(--mono); font-size: .85rem; font-weight: 600; }
+
+    /* Code highlighting (tempest/highlight classes), kept in greys: no extra colours. */
+    .hl-keyword { font-weight: 600; }
+    .hl-comment { color: var(--muted); font-style: italic; }
+    .hl-type, .hl-generic { font-weight: 500; }
+    .hl-attribute { font-style: italic; }
+}

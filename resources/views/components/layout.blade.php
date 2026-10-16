@@ -1,4 +1,4 @@
-@props(['title' => null, 'description' => null])
+@props(['title' => null, 'description' => null, 'canonical' => null, 'alternates' => true, 'ogType' => 'website'])
 @php
     $siteName = __('ui.name');
     $pageTitle = $title ? $title.' · '.$siteName : $siteName.' · '.__('ui.meta.tagline');
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $pageDescription }}">
-    @include('partials.head-meta', ['title' => $pageTitle, 'description' => $pageDescription])
+    @include('partials.head-meta', ['title' => $pageTitle, 'description' => $pageDescription, 'canonical' => $canonical, 'withAlternates' => $alternates, 'ogType' => $ogType])
     {{-- Apply the stored theme before first paint so dark mode never flashes. --}}
     <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

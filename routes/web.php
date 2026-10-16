@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TextController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleRedirectController;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -15,6 +16,8 @@ Route::prefix('{locale}')
     ->middleware(SetLocale::class)
     ->group(function () {
         Route::get('/', HomeController::class)->name('home');
+        Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
     });
 
 // Admin (Inertia + Vue). Login and logout routes come from Fortify.

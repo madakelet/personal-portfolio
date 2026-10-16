@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Translation\DatabaseOverrideLoader;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['home', 'partials.header'], function ($view) {
             $path = config('site.cv_pdf');
             $view->with('cvUrl', file_exists(public_path($path)) ? asset($path) : null);
+        });
+
+        // The Blog link and RSS link only show once something is published.
+        View::composer(['partials.header', 'partials.footer'], function ($view) {
+            $view->with('hasPosts', once(fn () => Post::query()->published()->exists()));
         });
     }
 }
