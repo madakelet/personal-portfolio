@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\BlogController;
@@ -36,4 +37,12 @@ Route::prefix('admin')
         Route::put('projects/{project}', [ProjectController::class, 'update'])->name('admin.projects.update');
         Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
         Route::post('projects/{project}/move', [ProjectController::class, 'move'])->name('admin.projects.move');
+
+        Route::get('posts', [PostController::class, 'index'])->name('admin.posts');
+        Route::get('posts/create', [PostController::class, 'create'])->name('admin.posts.create');
+        Route::post('posts', [PostController::class, 'store'])->name('admin.posts.store');
+        Route::post('posts/preview', [PostController::class, 'preview'])->name('admin.posts.preview');
+        Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('admin.posts.edit');
+        Route::put('posts/{post}', [PostController::class, 'update'])->name('admin.posts.update');
+        Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
     });
