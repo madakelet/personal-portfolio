@@ -76,8 +76,10 @@ Owner: Hungarian software developer / DevOps engineer living in Belgium.
   Laravel 10 + Vue 3 + Tailwind, since Dec 2023, active); portfolio site
   for their girlfriend, a photographer (2026).
 
-Still placeholders: the owner's name ("Your Name"), email, GitHub and
-LinkedIn URLs and both side project URLs, all in `config/site.php`. The
+Still placeholders: the owner's name ("Your Name", in `lang/*/ui.php`
+because Hungarian puts the family name first), the email and both side
+project URLs in `config/site.php`, and the GitHub and LinkedIn URLs in
+`.env` (`SITE_GITHUB_URL`, `SITE_LINKEDIN_URL`). The
 prototype's blog posts are throwaway samples and were not ported.
 
 ## Architecture (decided)
@@ -94,7 +96,7 @@ prototype's blog posts are throwaway samples and were not ported.
 
 ## Next steps
 
-1. Fill in the placeholders in `config/site.php` and add `public/cv.pdf`.
+1. Fill in the placeholders listed above and add `public/cv.pdf`.
 2. Set up the site on Plesk (requirements in README).
 3. Phase 2: posts table (slug, title, excerpt, Markdown body, locale, tags,
    published_at), public `/{locale}/blog` pages in Blade, RSS, Fortify

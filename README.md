@@ -25,9 +25,11 @@ vendor/bin/pint        # PHP code style
 
 ## Where things live
 
-- `config/site.php`: name, email, GitHub, LinkedIn and side project links.
+- `config/site.php`: email and side project links.
+- `.env`: `SITE_GITHUB_URL` and `SITE_LINKEDIN_URL`.
 - `lang/{en,nl,hu}/cv.php`: the landing page copy, one file per language.
-- `lang/{en,nl,hu}/ui.php`: navigation, headings, date formats, meta tags.
+- `lang/{en,nl,hu}/ui.php`: your name (Hungarian puts the family name
+  first), navigation, headings, date formats, meta tags.
 - `resources/css/app.css`: design tokens and the hand-written styles.
 - `public/cv.pdf`: drop the CV here and the links to it appear.
 

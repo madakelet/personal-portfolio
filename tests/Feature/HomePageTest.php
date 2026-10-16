@@ -26,6 +26,24 @@ class HomePageTest extends TestCase
             ->assertSee('href="https://github.com/example"', false);
     }
 
+    public function test_name_is_translated_per_locale(): void
+    {
+        app('translator')->addLines(['ui.name' => 'Test Name'], 'en');
+        app('translator')->addLines(['ui.name' => 'Név Teszt'], 'hu');
+
+        $this->get('/en')->assertSee('<h1>Test Name</h1>', false)->assertSee('class="name" href="'.url('/en').'">Test Name</a>', false);
+        $this->get('/hu')->assertSee('<h1>Név Teszt</h1>', false)->assertSee('© '.date('Y').' Név Teszt', false);
+    }
+
+    public function test_footer_hides_profile_links_that_are_not_set(): void
+    {
+        config(['site.github' => null, 'site.linkedin' => 'https://www.linkedin.com/in/example']);
+
+        $this->get('/en')
+            ->assertDontSee('rel="noopener" target="_blank">GitHub</a>', false)
+            ->assertSee('<a href="https://www.linkedin.com/in/example" rel="noopener" target="_blank">LinkedIn</a>', false);
+    }
+
     public function test_cv_link_is_hidden_until_the_pdf_exists(): void
     {
         config(['site.cv_pdf' => 'test-cv.pdf']);
