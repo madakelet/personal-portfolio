@@ -13,4 +13,15 @@ return [
         'theme' => 'Switch colour theme',
         'language' => 'Language',
     ],
+    'sections' => [
+        'experience' => 'Experience',
+        'education' => 'Education',
+        'projects' => 'Projects',
+        'side_projects' => 'Side projects',
+    ],
+    'dates' => [
+        // Carbon isoFormat pattern for "YYYY-MM" dates.
+        'month' => 'MMM YYYY',
+        'present' => 'present',
+    ],
 ];
