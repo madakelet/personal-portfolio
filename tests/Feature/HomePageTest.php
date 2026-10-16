@@ -51,4 +51,14 @@ class HomePageTest extends TestCase
             ->assertSee('href="https://picks.example.test"', false)
             ->assertSee('<strong>Photography portfolio</strong>', false);
     }
+
+    public function test_dutch_page_is_translated(): void
+    {
+        $this->get('/nl')
+            ->assertOk()
+            ->assertSeeInOrder(['Ervaring', 'Opleiding', 'Projecten', 'Nevenprojecten'])
+            ->assertSee('2024 – heden')
+            ->assertSee('mrt. 2023 – dec. 2023')
+            ->assertSee('Over mij');
+    }
 }
