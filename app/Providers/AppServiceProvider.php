@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Translation\DatabaseOverrideLoader;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Texts edited in the admin override the lang file defaults.
+        $this->app->extend('translation.loader', fn ($files) => new DatabaseOverrideLoader($files));
     }
 
     /**
