@@ -2,9 +2,9 @@
 
 return [
     // Page heading, footer, browser title.
-    'name' => 'Your Name', // TODO
+    'name' => 'Adam Telek',
     // Top bar, after the ~/ prefix.
-    'header_name' => 'Your Name', // TODO
+    'header_name' => 'madakelet',
 
     'meta' => [
         'tagline' => 'Softwareontwikkelaar en DevOps-engineer',
