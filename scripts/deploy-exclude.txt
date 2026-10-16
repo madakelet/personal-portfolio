@@ -1,0 +1,12 @@
+.git/
+.github/
+.env
+.env.*
+node_modules/
+storage/
+tests/
+prototype/
+CLAUDE.md
+phpunit.xml
+.phpunit.cache/
+.editorconfig

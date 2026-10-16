@@ -38,3 +38,58 @@ jobs:
           cp .env.example .env
           php artisan key:generate
           php artisan test
+
+  # Builds a production release and ships it to the Plesk server over SSH.
+  # Stays off until the repository variable DEPLOY_ENABLED is set to "true"
+  # and the DEPLOY_* secrets exist (see README).
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    concurrency: production
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build release
+        run: |
+          composer install --no-interaction --no-progress --prefer-dist --no-dev --optimize-autoloader
+          npm ci
+          npm run build
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+          BASE: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          RELEASE="$BASE/releases/${GITHUB_SHA}"
+          ssh -i ~/.ssh/id_deploy "$TARGET" "mkdir -p '$RELEASE'"
+          rsync -az --delete -e "ssh -i ~/.ssh/id_deploy" \
+            --exclude-from=scripts/deploy-exclude.txt \
+            ./ "$TARGET:$RELEASE/"
+
+      - name: Activate release
+        env:
+          TARGET: ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+          BASE: ${{ secrets.DEPLOY_PATH }}
+          PHP_BIN: ${{ secrets.DEPLOY_PHP_BIN }}
+        run: |
+          ssh -i ~/.ssh/id_deploy "$TARGET" \
+            "PHP_BIN='${PHP_BIN:-php}' bash '$BASE/releases/${GITHUB_SHA}/scripts/activate-release.sh'"
