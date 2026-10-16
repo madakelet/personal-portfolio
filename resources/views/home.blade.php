@@ -23,12 +23,14 @@
         @include('partials.entry')
     @endforeach
 
-    <h2 id="projects">{{ __('ui.sections.projects') }}</h2>
-    <ul>
-        @foreach (__('cv.projects') as $project)
-            <li><strong>{{ $project['title'] }}</strong> <span class="muted">({{ $project['meta'] }})</span>. {!! $project['body'] !!}</li>
-        @endforeach
-    </ul>
+    @if ($projects->isNotEmpty())
+        <h2 id="projects">{{ __('ui.sections.projects') }}</h2>
+        <ul>
+            @foreach ($projects as $project)
+                <li><strong>{{ $project->translated('title') }}</strong>@if ($project->translated('meta') !== '') <span class="muted">({{ $project->translated('meta') }})</span>@endif. {!! $project->translated('body') !!}</li>
+            @endforeach
+        </ul>
+    @endif
 
     <h2 id="side-projects">{{ __('ui.sections.side_projects') }}</h2>
     <ul>

@@ -46,29 +46,6 @@ return [
         ],
     ],
 
-    'projects' => [
-        [
-            'title' => 'Automatikus hibavalidálás Claude-dal',
-            'meta' => 'Optimy, 2026',
-            'body' => 'A hibajegyek validálása a csatlakozásom óta a support csapat legnagyobb időrablója volt: reprodukálni a hibát, elolvasni a kódot, átnézni a logokat, eldönteni, hogy valós-e. Először írtam egy Claude skillt, ami ezt meg tudta csinálni, aztán felépítettem köré a rendszert: Jira webhookok indítanak egy futást, Claude hozzáfér a repókhoz és a logokhoz, a jegy pedig validálva jön vissza. Ma már emberi beavatkozás nélkül fut.',
-        ],
-        [
-            'title' => 'Eszköz- és szerződéskezelő platform',
-            'meta' => 'szabadúszó, 2023',
-            'body' => 'Szerződések követése, bevételek és számlák több száz ingatlanhoz, e-mailes kommunikáció az ügyfelekkel, a telephelyek parkolóhelyeinek interaktív térképe, közműóra-leolvasások fotói és dashboardok. Laravel és Vue, egyedül építettem, 2023 decembere óta éles.',
-        ],
-        [
-            'title' => 'Munkalapkezelő egy autószerviznek',
-            'meta' => 'Creative Brand Solutions, 2022 – 23',
-            'body' => 'Rendszer a szerviz munkalapjainak napi kezelésére. Én vezettem a projektet, és a cégtől való távozásom előtt átadtam. Ma is naponta használják.',
-        ],
-        [
-            'title' => 'L2 folyamatok dokumentálása és automatizálása',
-            'meta' => 'Optimy, 2024',
-            'body' => 'Minden kézi support folyamatot dokumentáltam, az ismétlődőket automatizáltam, többet pedig beépítettünk a termékbe. A csapat most sokkal kevesebb időt tölt rutinmunkával.',
-        ],
-    ],
-
     'side_projects' => [
         'nfl' => [
             'title' => 'NFL tippjáték',

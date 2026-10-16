@@ -48,29 +48,6 @@ return [
         ],
     ],
 
-    'projects' => [
-        [
-            'title' => 'Automated bug validation with Claude',
-            'meta' => 'Optimy, 2026',
-            'body' => 'Validating bug tickets was the support team\'s biggest time sink since I joined: reproduce the issue, read the code, check the logs, decide if it\'s real. I started by writing a Claude skill that could do this, then built the setup around it: Jira webhooks trigger a run, Claude has access to the repositories and logs, and the ticket comes back validated. It now runs without any human interaction.',
-        ],
-        [
-            'title' => 'Asset and contract management platform',
-            'meta' => 'freelance, 2023',
-            'body' => 'Contract follow-up, income and invoices for hundreds of properties, email communication with clients, an interactive map of parking spots at the depots, photos of utility meter readings, and dashboards. Laravel and Vue, built solo, in production since December 2023.',
-        ],
-        [
-            'title' => 'Worksheet manager for a car repair shop',
-            'meta' => 'Creative Brand Solutions, 2022 – 23',
-            'body' => 'A system for managing the shop\'s worksheets day to day. I led the project and delivered it before leaving the company. Still in daily use.',
-        ],
-        [
-            'title' => 'L2 process documentation and automation',
-            'meta' => 'Optimy, 2024',
-            'body' => 'Documented every manual support process, automated the repetitive ones, and moved several into the product. The team now spends much less time on routine work.',
-        ],
-    ],
-
     // Keys match config('site.side_project_urls') for optional links.
     'side_projects' => [
         'nfl' => [

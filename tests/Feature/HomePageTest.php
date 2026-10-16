@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Tests\TestCase;
 
 class HomePageTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_home_shows_every_cv_section(): void
     {
         $this->get('/en')

@@ -46,29 +46,6 @@ return [
         ],
     ],
 
-    'projects' => [
-        [
-            'title' => 'Geautomatiseerde bugvalidatie met Claude',
-            'meta' => 'Optimy, 2026',
-            'body' => 'Bugtickets valideren kostte het supportteam sinds mijn start de meeste tijd: het probleem reproduceren, de code lezen, de logs nakijken en beslissen of het echt een bug is. Ik begon met een Claude-skill die dit kon, en bouwde daarna de opzet eromheen: Jira-webhooks starten een run, Claude heeft toegang tot de repositories en logs, en het ticket komt gevalideerd terug. Het draait nu zonder menselijke tussenkomst.',
-        ],
-        [
-            'title' => 'Platform voor vastgoed- en contractbeheer',
-            'meta' => 'freelance, 2023',
-            'body' => 'Opvolging van contracten, inkomsten en facturen voor honderden panden, e-mailcommunicatie met klanten, een interactieve kaart van de parkeerplaatsen bij de depots, foto\'s van meterstanden en dashboards. Laravel en Vue, alleen gebouwd, in productie sinds december 2023.',
-        ],
-        [
-            'title' => 'Werkbonnensysteem voor een autogarage',
-            'meta' => 'Creative Brand Solutions, 2022 – 23',
-            'body' => 'Een systeem om de werkbonnen van de garage dagelijks te beheren. Ik leidde het project en leverde het op voor ik het bedrijf verliet. Nog elke dag in gebruik.',
-        ],
-        [
-            'title' => 'Documentatie en automatisering van L2-processen',
-            'meta' => 'Optimy, 2024',
-            'body' => 'Elk handmatig supportproces gedocumenteerd, de repetitieve geautomatiseerd en een aantal in het product ingebouwd. Het team besteedt nu veel minder tijd aan routinewerk.',
-        ],
-    ],
-
     'side_projects' => [
         'nfl' => [
             'title' => 'NFL pick\'em',
