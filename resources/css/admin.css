@@ -1,0 +1,26 @@
+/* Admin-only additions on top of app.css. Same tokens, same type. */
+.wrap-admin { max-width: 72rem; }
+
+.site-header nav .link-button::before,
+.site-header nav .link-button::after { content: none; }
+
+.flash { font-family: var(--mono); font-size: .85rem; border-left: 3px solid var(--accent); background: var(--code-bg); padding: .5rem .85rem; border-radius: 0 4px 4px 0; }
+
+label { display: block; font-family: var(--mono); font-size: .8rem; color: var(--muted); margin-bottom: .25rem; }
+input[type='text'], input[type='email'], input[type='password'], input[type='search'], textarea {
+    width: 100%; font: inherit; color: var(--fg); background: var(--bg);
+    border: 1px solid var(--rule); border-radius: 4px; padding: .45rem .6rem;
+}
+textarea { font-family: var(--mono); font-size: .8rem; line-height: 1.5; resize: vertical; min-height: 4.5rem; }
+input:focus-visible, textarea:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; border-color: transparent; }
+
+.btn { font-family: var(--mono); font-size: .8rem; color: var(--fg); background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px; padding: .3rem .7rem; cursor: pointer; }
+.btn:hover { border-color: var(--muted); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+.error { color: #b91c1c; font-family: var(--mono); font-size: .8rem; margin: .25rem 0 0; }
+:root[data-theme='dark'] .error { color: #f87171; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) .error { color: #f87171; } }
+.warn { color: var(--accent); font-family: var(--mono); font-size: .75rem; margin: .25rem 0 0; }
+.tag { font-family: var(--mono); font-size: .7rem; color: var(--accent); }
