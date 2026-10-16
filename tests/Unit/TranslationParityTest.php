@@ -40,6 +40,14 @@ class TranslationParityTest extends TestCase
         );
     }
 
+    public function test_every_configured_locale_has_translations(): void
+    {
+        foreach (array_keys(config('site.locales')) as $locale) {
+            $this->assertFileExists(lang_path("{$locale}/cv.php"));
+            $this->assertFileExists(lang_path("{$locale}/ui.php"));
+        }
+    }
+
     /** Keys and nesting only; leaf values become their type. */
     private function shape(array $data): array
     {

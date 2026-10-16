@@ -61,4 +61,14 @@ class HomePageTest extends TestCase
             ->assertSee('mrt. 2023 – dec. 2023')
             ->assertSee('Over mij');
     }
+
+    public function test_hungarian_page_is_translated(): void
+    {
+        $this->get('/hu')
+            ->assertOk()
+            ->assertSeeInOrder(['Tapasztalat', 'Tanulmányok', 'Projektek', 'Hobbiprojektek'])
+            ->assertSee('2024 – jelenleg')
+            ->assertSee('2023. márc. – 2023. dec.')
+            ->assertSee('Rólam');
+    }
 }
