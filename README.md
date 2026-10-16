@@ -41,6 +41,13 @@ php artisan texts:export --clear    # same, then delete the exported rows
 The export rewrites the arrays, so comments inside them are dropped.
 Check the diff before committing.
 
+Blog posts are written at `/admin/posts`, in Markdown, one language per
+post. Leave the publish date empty for a draft, or set a future date to
+schedule a post. The preview renders exactly like the site, including
+code highlighting (fenced blocks with a language, e.g. ```` ```php ````)
+and `>` quotes as callouts. The blog link in the top bar, the home page
+section and the RSS feed (`/feed.xml`) appear once a post is published.
+
 Projects have their own page, `/admin/projects`, where they can be added,
 edited, reordered and removed. They live only in the `projects` table, not
 in the lang files, so `texts:export` does not cover them.
@@ -80,4 +87,4 @@ done by hand. What the server needs:
 - After each deploy: `php artisan migrate --force` and
   `php artisan optimize`.
 - Once, after the first deploy: `php artisan make:owner`.
-- Back up the database: edited texts and all projects live there.
+- Back up the database: edited texts, projects and blog posts live there.

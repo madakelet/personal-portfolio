@@ -7,8 +7,10 @@ occasionally). Owner is the repo author; see "Content" for who they are.
 Status (2026-10-16): phase 1 is built. Laravel 13 serves the landing page
 with Blade and Tailwind 4 in English, Dutch and Hungarian under `/en`,
 `/nl` and `/hu`. Phase 2a is built too: owner login and an admin at
-`/admin/texts` to edit every text per language. The blog (phase 2) has
-not started.
+`/admin/texts` to edit every text per language. The blog (phase 2) is
+built: `/{locale}/blog`, post pages, `/feed.xml`, and a posts editor at
+`/admin/posts`. Phase 3 candidates: tag pages, image uploads, a CV PDF
+generated per locale.
 
 ## Start here
 
@@ -100,6 +102,12 @@ prototype's blog posts are throwaway samples and were not ported.
   Experience), and there is no separate side projects section. They live
   in the `projects` table (position, optional url, JSON title/meta/body per
   locale, empty falls back to English) and are managed at `/admin/projects`.
+- Blog posts (`posts` table) are Markdown, one language each (`locale`),
+  never translated. `published_at` null = draft, future = scheduled; only
+  `Post::published()` is public. `body_html` is rendered on save by
+  `App\Support\Markdown` (GFM + tempest/highlight, code in greys only).
+  A post page's canonical URL uses the post's own locale and has no
+  hreflang alternates. `tags` exists in the table but is not used yet.
 - Auth is Fortify with login/logout only, one owner account from
   `php artisan make:owner`. No registration or password reset.
 - Hosting is Plesk, deployed by hand by the owner. No GitHub Actions and
@@ -111,6 +119,5 @@ prototype's blog posts are throwaway samples and were not ported.
 
 1. Fill in the placeholders listed above and add `public/cv.pdf`.
 2. Set up the site on Plesk (requirements in README).
-3. Phase 2: posts table (slug, title, excerpt, Markdown body, locale, tags,
-   published_at), public `/{locale}/blog` pages in Blade, RSS, and a posts
-   editor in the existing admin. "Blog", not "Writing", in the nav.
+3. Write the first real post. The blog link, home section and RSS link
+   appear on their own once a post is published.
