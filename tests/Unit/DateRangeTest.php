@@ -14,5 +14,6 @@ class DateRangeTest extends TestCase
         $this->assertSame('2017 – 2020', DateRange::format('2017', '2020'));
         $this->assertSame('Mar 2023 – Dec 2023', DateRange::format('2023-03', '2023-12'));
         $this->assertSame('2024 – present', DateRange::format('2024', null));
+        $this->assertSame('2024 – present', DateRange::format('2024', ''));
     }
 }

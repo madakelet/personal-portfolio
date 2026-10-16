@@ -6,13 +6,13 @@ use Illuminate\Support\Carbon;
 
 /**
  * Formats CV date ranges in the current locale. Dates are "YYYY" or
- * "YYYY-MM"; a missing end date means "present".
+ * "YYYY-MM"; a missing or empty end date means "present".
  */
 class DateRange
 {
     public static function format(string $from, ?string $to = null): string
     {
-        $end = $to === null ? __('ui.dates.present') : self::point($to);
+        $end = ($to === null || $to === '') ? __('ui.dates.present') : self::point($to);
 
         return self::point($from).' – '.$end;
     }

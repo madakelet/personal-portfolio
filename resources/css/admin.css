@@ -37,3 +37,6 @@ input:focus-visible, textarea:focus-visible { outline: 2px solid var(--link); ou
 .text-locales { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
 .text-cell label { display: flex; gap: .5rem; }
 .text-actions { display: flex; gap: .4rem; margin-top: .35rem; }
+
+.text-date { max-width: 20rem; }
+.date-help { font-size: .8rem; margin: .25rem 0 0; }

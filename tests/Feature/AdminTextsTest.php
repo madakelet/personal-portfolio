@@ -49,7 +49,8 @@ class AdminTextsTest extends TestCase
             ->flatMap(fn ($s) => collect($s['rows'])->pluck('key'));
 
         $this->assertContains('experience.0.body', $keys);
-        $this->assertNotContains('experience.0.from', $keys);
+        $this->assertContains('experience.0.from', $keys);
+        $this->assertContains('experience.0.to', $keys);
         $this->assertNotContains('dates.month', $keys);
         $this->assertNotContains('meta.og_locale', $keys);
     }
@@ -113,10 +114,65 @@ class AdminTextsTest extends TestCase
         $this->actingAs($this->owner())->from('/admin/texts');
 
         $this->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'nope.key', 'value' => 'x'])->assertSessionHasErrors('key');
-        $this->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'experience.0.from', 'value' => '1999'])->assertSessionHasErrors('key');
+        $this->put('/admin/texts', ['locale' => 'en', 'group' => 'ui', 'key' => 'dates.month', 'value' => 'MM'])->assertSessionHasErrors('key');
         $this->put('/admin/texts', ['locale' => 'de', 'group' => 'cv', 'key' => 'bio.0', 'value' => 'x'])->assertSessionHasErrors('locale');
         $this->put('/admin/texts', ['locale' => 'en', 'group' => 'auth', 'key' => 'failed', 'value' => 'x'])->assertSessionHasErrors('group');
         $this->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'bio.0', 'value' => ''])->assertSessionHasErrors('value');
+
+        $this->assertSame(0, Translation::count());
+    }
+
+    public function test_a_date_is_saved_for_every_language(): void
+    {
+        $this->actingAs($this->owner())
+            ->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'experience.1.from', 'value' => '2023-04'])
+            ->assertSessionHasNoErrors();
+
+        $this->assertSame(['en', 'hu', 'nl'], Translation::where('key', 'experience.1.from')->orderBy('locale')->pluck('locale')->all());
+
+        app('translator')->setLoaded([]);
+        $this->get('/en')->assertSee('Apr 2023 – Dec 2023');
+        $this->get('/hu')->assertSee('2023. ápr. – 2023. dec.');
+    }
+
+    public function test_an_empty_end_date_means_present(): void
+    {
+        $this->actingAs($this->owner())
+            ->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'experience.1.to', 'value' => ''])
+            ->assertSessionHasNoErrors();
+
+        app('translator')->setLoaded([]);
+        $this->get('/en')->assertSee('Mar 2023 – present');
+        $this->get('/nl')->assertSee('mrt. 2023 – heden');
+    }
+
+    public function test_clearing_an_open_end_date_keeps_no_override(): void
+    {
+        // The Optimy entry already ends in "present" (null in the file).
+        $this->actingAs($this->owner())->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'experience.0.to', 'value' => '']);
+
+        $this->assertSame(0, Translation::count());
+    }
+
+    public function test_dates_must_be_year_or_year_and_month(): void
+    {
+        $this->actingAs($this->owner())->from('/admin/texts');
+
+        foreach (['March 2023', '2023-13', '23', '2023-3', ''] as $bad) {
+            $this->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'experience.1.from', 'value' => $bad])
+                ->assertSessionHasErrors('value');
+        }
+
+        $this->assertSame(0, Translation::count());
+    }
+
+    public function test_resetting_a_date_clears_it_in_every_language(): void
+    {
+        $this->actingAs($this->owner());
+        $this->put('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'education.0.from', 'value' => '2016']);
+        $this->assertSame(3, Translation::count());
+
+        $this->delete('/admin/texts', ['locale' => 'en', 'group' => 'cv', 'key' => 'education.0.from']);
 
         $this->assertSame(0, Translation::count());
     }

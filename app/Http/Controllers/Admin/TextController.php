@@ -23,30 +23,61 @@ class TextController extends Controller
         ]);
     }
 
-    /** Save one text in one language. Saving the file default removes the override. */
+    /**
+     * Save one text in one language. Saving the file default removes the
+     * override. CV dates are saved for every language at once.
+     */
     public function update(Request $request): RedirectResponse
     {
-        $data = $this->validated($request, ['value' => ['required', 'string', 'max:10000']]);
-        $default = $this->catalog->defaults($data['locale'], $data['group'])[$data['key']] ?? null;
-        $match = ['locale' => $data['locale'], 'group' => $data['group'], 'key' => $data['key']];
+        $isDate = $this->catalog->isDate((string) $request->input('key'));
+        $data = $this->validated($request, ['value' => $isDate
+            ? [$this->isEndDate($request) ? 'nullable' : 'required', 'string', 'regex:'.TextCatalog::DATE_FORMAT]
+            : ['required', 'string', 'max:10000'],
+        ]);
+        $value = $data['value'] ?? ''; // an empty end date means "present"
 
-        if ($data['value'] === $default) {
-            Translation::where($match)->first()?->delete();
-        } else {
-            Translation::updateOrCreate($match, ['value' => $data['value']]);
+        foreach ($this->targetLocales($data['locale'], $isDate) as $locale) {
+            $default = $this->catalog->defaults($locale, $data['group'])[$data['key']] ?? '';
+            $match = ['locale' => $locale, 'group' => $data['group'], 'key' => $data['key']];
+
+            if ($value === $default) {
+                Translation::where($match)->first()?->delete();
+            } else {
+                Translation::updateOrCreate($match, ['value' => $value]);
+            }
         }
 
-        return back()->with('status', "Saved {$data['group']}.{$data['key']} ({$data['locale']}).");
+        return back()->with('status', "Saved {$this->label($data, $isDate)}.");
     }
 
-    /** Reset one text in one language to its lang file default. */
+    /** Reset one text in one language (a date: in all languages) to its lang file default. */
     public function destroy(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
+        $isDate = $this->catalog->isDate($data['key']);
 
-        Translation::where($data)->first()?->delete();
+        Translation::query()
+            ->where(['group' => $data['group'], 'key' => $data['key']])
+            ->whereIn('locale', $this->targetLocales($data['locale'], $isDate))
+            ->get()->each->delete();
 
-        return back()->with('status', "Reset {$data['group']}.{$data['key']} ({$data['locale']}) to the default.");
+        return back()->with('status', "Reset {$this->label($data, $isDate)} to the default.");
+    }
+
+    /** @return list<string> */
+    private function targetLocales(string $locale, bool $isDate): array
+    {
+        return $isDate ? $this->catalog->locales() : [$locale];
+    }
+
+    private function isEndDate(Request $request): bool
+    {
+        return str_ends_with((string) $request->input('key'), '.to') || $request->input('key') === 'to';
+    }
+
+    private function label(array $data, bool $isDate): string
+    {
+        return "{$data['group']}.{$data['key']} (".($isDate ? 'all languages' : $data['locale']).')';
     }
 
     private function validated(Request $request, array $extra = []): array

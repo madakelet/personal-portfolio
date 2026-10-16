@@ -8,14 +8,20 @@ use Illuminate\Support\Str;
 
 /**
  * The texts the admin can edit: every string in lang/en/{cv,ui}.php,
- * minus a few technical values (CV dates, date format, OG locale).
+ * minus a few technical values (date format, OG locale). CV dates are
+ * editable too, but as one value shared by all languages.
  */
 class TextCatalog
 {
     public const GROUPS = ['ui', 'cv'];
 
     /** Keys that hold data, not copy. Editing them can break formatting. */
-    private const LOCKED = ['/(^|\.)(from|to)$/', '/^dates\.month$/', '/^meta\.og_locale$/'];
+    private const LOCKED = ['/^dates\.month$/', '/^meta\.og_locale$/'];
+
+    /** CV dates: "YYYY" or "YYYY-MM". An empty end date means "present". */
+    private const DATE = '/(^|\.)(from|to)$/';
+
+    public const DATE_FORMAT = '/^\d{4}(-(0[1-9]|1[0-2]))?$/';
 
     /** @return list<string> */
     public function locales(): array
@@ -35,7 +41,7 @@ class TextCatalog
     public function editableKeys(string $group): array
     {
         return collect($this->defaults('en', $group))
-            ->filter(fn ($value, $key) => is_string($value) && ! $this->isLocked($key))
+            ->filter(fn ($value, $key) => (is_string($value) || $this->isDate($key)) && ! $this->isLocked($key))
             ->keys()
             ->all();
     }
@@ -65,6 +71,7 @@ class TextCatalog
                 $sections[$section][] = [
                     'group' => $group,
                     'key' => $key,
+                    'type' => $this->isDate($key) ? 'date' : 'text',
                     'context' => $this->context($defaults['en'], $key),
                     'defaults' => $defaults->map(fn ($d) => $d[$key] ?? '')->all(),
                     'overrides' => collect($this->locales())->mapWithKeys(fn ($l) => [$l => $overrides[$l][$key] ?? null])->all(),
@@ -83,6 +90,11 @@ class TextCatalog
         }
 
         return $enDefaults[$m[1].'.title'] ?? null;
+    }
+
+    public function isDate(string $key): bool
+    {
+        return (bool) preg_match(self::DATE, $key);
     }
 
     private function isLocked(string $key): bool

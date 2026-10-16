@@ -28,7 +28,7 @@ const isDirty = (row, locale) => drafts[id(row, locale)] !== current(row, locale
 const isEdited = (row, locale) => row.overrides[locale] !== null;
 
 // ":github", ":email" etc. A missing one breaks a link or leaves a gap.
-const placeholders = (text) => new Set(text.match(/:[a-z_]+/g) ?? []);
+const placeholders = (text) => new Set((text ?? '').match(/:[a-z_]+/g) ?? []);
 function missingPlaceholders(row, locale) {
     const draft = placeholders(drafts[id(row, locale)] ?? '');
     return [...placeholders(row.defaults[locale])].filter((p) => !draft.has(p));
@@ -42,7 +42,7 @@ const visibleSections = computed(() => {
             ...s,
             rows: s.rows.filter((row) =>
                 [`${row.group}.${row.key}`, row.context ?? '', ...Object.keys(props.locales).map((l) => drafts[id(row, l)])]
-                    .some((text) => text.toLowerCase().includes(q)),
+                    .some((text) => (text ?? '').toLowerCase().includes(q)),
             ),
         }))
         .filter((s) => s.rows.length);
@@ -100,7 +100,28 @@ const rowsFor = (text) => Math.min(14, Math.max(2, Math.ceil((text ?? '').length
                     <code>{{ row.key }}</code>
                     <span v-if="row.context" class="muted"> · {{ row.context }}</span>
                 </div>
-                <div class="text-locales">
+                <div v-if="row.type === 'date'" class="text-date">
+                    <label :for="id(row, 'en')">
+                        all languages
+                        <span v-if="isEdited(row, 'en')" class="tag">edited</span>
+                        <span v-if="isDirty(row, 'en')" class="tag">unsaved</span>
+                    </label>
+                    <input
+                        :id="id(row, 'en')"
+                        v-model="drafts[id(row, 'en')]"
+                        type="text"
+                        inputmode="numeric"
+                        :placeholder="row.key.endsWith('to') ? 'YYYY or YYYY-MM, empty = present' : 'YYYY or YYYY-MM'"
+                        @keydown.enter.prevent="isDirty(row, 'en') && save(row, 'en')"
+                    />
+                    <p class="muted date-help">{{ row.key.endsWith('to') ? 'e.g. 2023 or 2023-12. Leave empty for "present".' : 'e.g. 2023 or 2023-03.' }}</p>
+                    <div v-if="isDirty(row, 'en') || isEdited(row, 'en')" class="text-actions">
+                        <button type="button" class="btn btn-primary" :disabled="!isDirty(row, 'en') || saving === id(row, 'en')" @click="save(row, 'en')">save</button>
+                        <button v-if="isDirty(row, 'en')" type="button" class="btn" @click="revert(row, 'en')">undo</button>
+                        <button v-if="isEdited(row, 'en')" type="button" class="btn" :disabled="saving === id(row, 'en')" @click="reset(row, 'en')">reset</button>
+                    </div>
+                </div>
+                <div v-else class="text-locales">
                     <div v-for="(label, locale) in locales" :key="locale" class="text-cell">
                         <label :for="id(row, locale)">
                             {{ locale }}
