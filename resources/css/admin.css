@@ -24,3 +24,6 @@ input:focus-visible, textarea:focus-visible { outline: 2px solid var(--link); ou
 @media (prefers-color-scheme: dark) { :root:not([data-theme='light']) .error { color: #f87171; } }
 .warn { color: var(--accent); font-family: var(--mono); font-size: .75rem; margin: .25rem 0 0; }
 .tag { font-family: var(--mono); font-size: .7rem; color: var(--accent); }
+
+.login { max-width: 22rem; margin-top: 1.5rem; display: grid; gap: 1rem; }
+.login .remember { display: flex; gap: .5rem; align-items: center; font-size: .85rem; }
