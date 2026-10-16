@@ -87,15 +87,15 @@ prototype's blog posts are throwaway samples and were not ported.
   Vue + Inertia come in phase 2 for the admin under `/admin` only.
 - Composer's platform is pinned to PHP 8.3, the lowest version deployed to.
 - Copy lives in `lang/{en,nl,hu}/cv.php`; a test enforces identical keys.
-- CI deploys to Plesk via rsync and `scripts/activate-release.sh`, gated by
-  the `DEPLOY_ENABLED` repository variable.
+- Deploys run through Plesk's Git extension, which pulls and builds on the
+  server (steps in README). No GitHub Actions; the owner does not want them.
 - Commits use the owner's identity only. Never add a Claude co-author
   trailer.
 
 ## Next steps
 
 1. Fill in the placeholders in `config/site.php` and add `public/cv.pdf`.
-2. Configure Plesk and the GitHub secrets (README), set `DEPLOY_ENABLED`.
+2. Configure Plesk and its Git deployment (README).
 3. Phase 2: posts table (slug, title, excerpt, Markdown body, locale, tags,
    published_at), public `/{locale}/blog` pages in Blade, RSS, Fortify
    login with a single owner account, Inertia + Vue admin. "Blog", not

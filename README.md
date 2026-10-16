@@ -33,34 +33,16 @@ vendor/bin/pint        # PHP code style
 
 ## Deploying to Plesk
 
-GitHub Actions builds everything (Composer without dev packages, Vite
-assets) and uploads a ready release over SSH. The server only needs PHP
-8.3 or newer, SSH access and Let's Encrypt. No Node or Composer on the
-server.
+Plesk's Git extension pulls the repository and runs the build on the
+server. The server needs PHP 8.3 or newer, Composer, Node.js 22 (Plesk's
+Node.js extension) and Let's Encrypt.
 
-Layout on the server, under a base directory such as
-`/var/www/vhosts/<domain>/portfolio`:
-
-```
-releases/<git sha>/   one directory per deploy, newest 3 kept
-shared/.env           created once by hand, never deployed
-shared/storage/       logs, sessions, cache
-shared/database/      database.sqlite
-current -> releases/<git sha>
-```
-
-`scripts/activate-release.sh` runs on the server after each upload. It
-links `shared/` into the release, runs migrations and `artisan optimize`,
-then switches `current` to the new release. To roll back, point
-`current` at an older release directory.
-
-### One-time setup in Plesk
+### One-time setup
 
 1. **PHP Settings:** PHP 8.3 or newer, FPM, OPcache on.
-2. **Hosting Settings:** set the document root to
-   `portfolio/current/public`.
-3. **SSH access:** enable it for the subscription user and add the
-   public half of a new deploy key to `~/.ssh/authorized_keys`.
+2. **Git:** add the repository, deploy mode "Automatic" or "Manual",
+   deployment path `httpdocs`.
+3. **Hosting Settings:** set the document root to `httpdocs/public`.
 4. **SSL/TLS:** issue a Let's Encrypt certificate and redirect HTTP to
    HTTPS.
 5. **nginx only:** if nginx serves PHP directly (no Apache), add this
@@ -68,7 +50,7 @@ then switches `current` to the new release. To roll back, point
    ```nginx
    location / { try_files $uri $uri/ /index.php?$query_string; }
    ```
-6. Create `shared/.env`:
+6. Create `httpdocs/.env` by hand in the File Manager. It is not in git:
    ```sh
    APP_NAME=Portfolio
    APP_ENV=production
@@ -77,28 +59,27 @@ then switches `current` to the new release. To roll back, point
    APP_URL=https://<domain>
    LOG_CHANNEL=daily
    DB_CONNECTION=sqlite
-   DB_DATABASE=/var/www/vhosts/<domain>/portfolio/shared/database/database.sqlite
+   DB_DATABASE=/var/www/vhosts/<domain>/httpdocs/database/database.sqlite
    SESSION_DRIVER=database
    SESSION_SECURE_COOKIE=true
    CACHE_STORE=database
    ```
+7. Create the empty database file once: `touch database/database.sqlite`.
 
-### GitHub configuration
+### Deployment actions
 
-Repository secrets:
+Paste these into the Git settings under "Enable additional deployment
+actions". Plesk runs them in the deployment path after each pull.
+Binary paths differ per server, so check them first with
+`ls /opt/plesk/php/ /opt/plesk/node/` and `ls /usr/lib*/plesk-9.0/composer.phar`.
 
-| Secret | Value |
-|---|---|
-| `DEPLOY_HOST` | server hostname |
-| `DEPLOY_USER` | Plesk subscription SSH user |
-| `DEPLOY_PATH` | base directory, e.g. `/var/www/vhosts/<domain>/portfolio` |
-| `DEPLOY_SSH_KEY` | private half of the deploy key |
-| `DEPLOY_KNOWN_HOSTS` | output of `ssh-keyscan <host>` |
-| `DEPLOY_PHP_BIN` | optional, e.g. `/opt/plesk/php/8.3/bin/php` |
+```sh
+/opt/plesk/php/8.3/bin/php /usr/lib/plesk-9.0/composer.phar install --no-dev --optimize-autoloader --no-interaction
+/opt/plesk/node/22/bin/npm ci
+/opt/plesk/node/22/bin/npm run build
+/opt/plesk/php/8.3/bin/php artisan migrate --force
+/opt/plesk/php/8.3/bin/php artisan optimize
+```
 
-Then set the repository variable `DEPLOY_ENABLED` to `true`. Every push
-to `main` that passes the tests is deployed.
-
-After a deploy, PHP may serve the previous release for up to two
-minutes because of its realpath cache. Restarting PHP-FPM from Plesk
-clears it right away.
+Run `php artisan test` and `vendor/bin/pint --test` locally before
+pushing; nothing runs them on the server.
