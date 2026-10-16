@@ -1,5 +1,5 @@
 <header class="site-header">
-    <a class="name" href="{{ route('home') }}">{{ config('site.name') }}</a>
+    <a class="name" href="{{ route('home') }}">{{ __('ui.name') }}</a>
     <nav aria-label="{{ __('ui.nav.label') }}">
         <a href="{{ route('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>{{ __('ui.nav.about') }}</a>
         <a href="{{ route('home') }}#projects">{{ __('ui.nav.projects') }}</a>

@@ -1,5 +1,5 @@
 <x-layout>
-    <h1>{{ config('site.name') }}</h1>
+    <h1>{{ __('ui.name') }}</h1>
 
     <div class="mt-4">
         @foreach (__('cv.bio') as $paragraph)

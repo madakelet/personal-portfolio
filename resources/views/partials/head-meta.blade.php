@@ -14,7 +14,7 @@
     <link rel="alternate" hreflang="x-default" href="{{ route('root') }}">
 @endif
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="{{ config('site.name') }}">
+<meta property="og:site_name" content="{{ __('ui.name') }}">
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ url()->current() }}">

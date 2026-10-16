@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'name' => 'Your Name', // TODO
+
     'meta' => [
         'tagline' => 'Softwareontwikkelaar en DevOps-engineer',
         'description' => 'Softwareontwikkelaar en DevOps-engineer uit Hongarije, woonachtig in België. Laravel, Vue, Kubernetes en AWS.',

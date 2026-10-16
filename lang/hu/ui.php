@@ -1,6 +1,9 @@
 <?php
 
 return [
+    // Hungarian order: family name first.
+    'name' => 'Your Name', // TODO
+
     'meta' => [
         'tagline' => 'Szoftverfejlesztő és DevOps mérnök',
         'description' => 'Magyar szoftverfejlesztő és DevOps mérnök Belgiumban. Laravel, Vue, Kubernetes és AWS.',

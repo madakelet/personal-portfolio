@@ -1,6 +1,6 @@
 @props(['title' => null, 'description' => null])
 @php
-    $siteName = config('site.name');
+    $siteName = __('ui.name');
     $pageTitle = $title ? $title.' · '.$siteName : $siteName.' · '.__('ui.meta.tagline');
     $pageDescription = $description ?? __('ui.meta.description');
 @endphp
