@@ -2,8 +2,7 @@
 
 Personal website: CV plus blog, in English, Dutch and Hungarian. Laravel 13
 with Blade and Tailwind 4 for the public pages, and an admin under `/admin`
-(Inertia + Vue) for editing the site's texts. The approved design and copy
-live in `prototype/prototype.html`.
+(Inertia + Vue) for editing the site's texts.
 
 ## Local development
 

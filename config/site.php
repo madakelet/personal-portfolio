@@ -1,8 +1,7 @@
 <?php
 
 /*
-| Owner details shown across the site. Values marked TODO are still
-| placeholders from the prototype. The name is translated, see
+| Owner details shown across the site. The name is translated, see
 | lang/{locale}/ui.php.
 */
 
