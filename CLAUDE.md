@@ -78,7 +78,7 @@ Owner: Hungarian software developer / DevOps engineer living in Belgium.
   Laravel 10 + Vue 3 + Tailwind, since Dec 2023, active); portfolio site
   for their girlfriend, a photographer (2026).
 
-Still placeholders: the owner's name ("Your Name", in `lang/*/ui.php`
+Still placeholders (projects are in the database now, not the lang files): the owner's name ("Your Name", in `lang/*/ui.php`
 because Hungarian puts the family name first), the email and both side
 project URLs in `config/site.php`, and the GitHub and LinkedIn URLs in
 `.env` (`SITE_GITHUB_URL`, `SITE_LINKEDIN_URL`). The
@@ -96,6 +96,9 @@ prototype's blog posts are throwaway samples and were not ported.
   the admin) override them via `App\Translation\DatabaseOverrideLoader`.
   `App\Translation\TextCatalog` decides which keys are editable.
   `php artisan texts:export` writes edits back into the files.
+- Projects are not in the lang files. They live in the `projects` table
+  (position + JSON title/meta/body per locale, empty falls back to English)
+  and are managed at `/admin/projects`.
 - Auth is Fortify with login/logout only, one owner account from
   `php artisan make:owner`. No registration or password reset.
 - Hosting is Plesk, deployed by hand by the owner. No GitHub Actions and
