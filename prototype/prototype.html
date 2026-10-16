@@ -1,0 +1,352 @@
+<title>Developer CV & Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one centered 42rem column, name + text nav on top, prose below. Nothing else. */
+:root {
+  --bg: #ffffff;
+  --fg: #1c1c1c;
+  --muted: #6b6b6b;
+  --link: #c2410c;
+  --accent: #c2410c;
+  --rule: #e4e4e4;
+  --code-bg: #f4f4f4;
+  --font: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141414; --fg: #e3e3e3; --muted: #9a9a9a; --link: #fb923c; --accent: #fb923c; --rule: #2c2c2c; --code-bg: #1f1f1f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141414; --fg: #e3e3e3; --muted: #9a9a9a; --link: #fb923c; --accent: #fb923c; --rule: #2c2c2c; --code-bg: #1f1f1f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16.5px/1.65 var(--font);
+}
+::selection { background: var(--accent); color: var(--bg); }
+.wrap { max-width: 42rem; margin: 0 auto; padding-inline: 1.25rem; padding-block: 2.5rem 4rem; }
+@media (min-width: 700px) { .wrap { padding-block: 4rem 6rem; } }
+
+a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+h1, h2, h3 { font-family: var(--mono); line-height: 1.3; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 1.5rem; font-weight: 600; }
+h2 { font-size: 1.05rem; font-weight: 600; margin-top: 3rem; margin-bottom: 1rem; }
+h2::before { content: "# "; color: var(--accent); }
+h3 { font-size: .95rem; font-weight: 600; margin-top: 2rem; margin-bottom: .5rem; }
+p { margin: 0 0 1rem; }
+ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+li { margin-bottom: .35rem; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+code { font-family: var(--mono); font-size: .9em; background: var(--code-bg); padding: .1em .35em; border-radius: 3px; }
+pre { background: var(--code-bg); padding: 1rem 1.1rem; overflow-x: auto; border-radius: 4px; font-size: .85rem; line-height: 1.55; margin: 0 0 1.25rem; }
+pre code { background: none; padding: 0; font-size: inherit; }
+.muted { color: var(--muted); }
+
+/* header */
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: 2.5rem; }
+header .name { font-family: var(--mono); font-weight: 600; color: var(--fg); text-decoration: none; font-size: 1rem; }
+header .name::before { content: "~/"; color: var(--accent); font-weight: 400; }
+header nav { display: flex; gap: 1.25rem; font-size: .875rem; font-family: var(--mono); }
+header nav a { color: var(--muted); text-decoration: none; }
+header nav a:hover, header nav a[aria-current] { color: var(--fg); text-decoration: underline; }
+header nav button { font: inherit; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; }
+header nav button::before { content: "["; } header nav button::after { content: "]"; }
+header nav button:hover { color: var(--fg); }
+header nav button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+/* lists with a date column */
+.dated { list-style: none; padding: 0; margin: 0 0 1rem; }
+.dated li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0 1rem; margin-bottom: .55rem; align-items: baseline; }
+.dated .d { color: var(--muted); font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: .85rem; }
+.dated .sub { color: var(--muted); font-size: .95rem; display: block; }
+@media (max-width: 480px) {
+  .dated li { grid-template-columns: 1fr; gap: 0; margin-bottom: .9rem; }
+  .dated .d { font-size: .85rem; }
+}
+
+/* experience */
+.job { margin-bottom: 1.5rem; }
+.job .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; align-items: baseline; }
+.job .head strong { font-weight: 600; }
+.job .head .d { color: var(--muted); font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.job p { margin: .25rem 0 0; }
+
+/* article */
+article .meta { color: var(--muted); font-family: var(--mono); font-size: .85rem; margin: .5rem 0 2rem; }
+.note { background: var(--code-bg); border-left: 3px solid var(--accent); padding: .85rem 1.1rem; border-radius: 0 4px 4px 0; margin: 0 0 1.25rem; font-size: .97rem; }
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: .95rem; }
+.pager a { min-width: 0; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-family: var(--mono); font-size: .8rem; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
+footer a { color: var(--muted); }
+
+.year { margin-top: 2rem; margin-bottom: .75rem; font-size: .9rem; color: var(--muted); font-weight: 500; }
+.year::before { content: "// "; color: var(--accent); }
+.proto { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 2rem; }
+</style>
+
+<div class="wrap">
+  <header>
+    <a class="name" href="#home">Your Name</a>
+    <nav>
+      <a href="#home" data-nav="home">About</a>
+      <a href="#writing" data-nav="writing">Writing</a>
+      <a href="#projects" data-nav="projects">Projects</a>
+      <a href="#cv" id="cv-link">CV (PDF)</a>
+      <button type="button" id="theme" aria-label="Switch colour theme">auto</button>
+    </nav>
+  </header>
+
+  <!-- ===== home ===== -->
+  <main id="view-home">
+    <p class="proto">Prototype. Name, links and blog posts are still placeholders; the CV content is real.</p>
+
+    <h1>Your Name</h1>
+    <p style="margin-top:1rem">I'm a software developer and DevOps engineer from Hungary, living in Belgium. I work at <a href="https://www.optimy.com" target="_blank" rel="noopener">Optimy</a> in Brussels, a social impact platform used by 330+ organisations in 25 countries. I joined in 2024 in an IT Ops / L2 support role, and since October 2026 I'm moving into the engineering team as L3 / DevOps.</p>
+    <p>Before that I spent four years in Hungary building Laravel and Vue systems: webshops and landing pages at an agency, a worksheet manager for a car repair shop, and, as a freelancer, an asset and contract management platform for a holding with hundreds of properties. All of them are still in use today. Hosting my freelance clients' sites on my own server is what got me interested in infrastructure in the first place.</p>
+    <p>I work with PHP 8, Laravel and Vue on the code side, and Kubernetes, Helm, Grafana, Loki and AWS (RDS, SQS, SES, S3, IAM) on the infrastructure side. I'm comfortable in codebases I didn't write, which comes from validating a lot of bug tickets, and I prefer documenting and automating a process over doing it by hand every week. My most recent project at work is a bug-validation pipeline where Claude does the validation, triggered by Jira webhooks, with access to our repositories and logs.</p>
+    <p>Outside work I like building things for people around me. I recently made a portfolio website for my girlfriend, who is a photographer, and I run an NFL pick'em site that my friends and I use every week during the season.</p>
+    <p>I write about the operational side of software <a href="#writing">here</a>. My code is on <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>, I'm on <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>, and you can email me at <a href="#" id="email">hello@yourdomain.dev</a>. There's also a <a href="#cv" class="cv">PDF version of my CV</a>.</p>
+
+    <h2 id="experience">Experience</h2>
+
+    <div class="job">
+      <div class="head"><strong>IT Ops / L2 Support, then L3 / DevOps, Optimy (Brussels)</strong><span class="d">2024 – present</span></div>
+      <p>Optimy runs on AWS and Kubernetes and serves hundreds of client organisations. When I joined, the support team had a lot of manual tasks and very little documentation. I documented every process first, then automated the repetitive ones, and later moved several of them into the product itself. I also migrated all custom client developments onto a standardised PHP 8 framework, took over client SSL certificates and custom email sending domains, take part in disaster recovery exercises, do code reviews, and give the product team feedback on the impact of new features. Lately I work mostly with the DevOps team on the Kubernetes, Helm and Grafana/Loki stack, and on the automated bug-validation pipeline listed under projects. Since October 2026 I'm transitioning into engineering as L3 / DevOps.</p>
+    </div>
+    <div class="job">
+      <div class="head"><strong>Freelance Developer</strong><span class="d">Mar 2023 – Dec 2023</span></div>
+      <p>One major project: an asset and contract management platform for a Hungarian holding with hundreds of depots, shops and flats. I designed and built it on my own in Laravel and Vue and shipped it in December 2023. They still use it daily. I also hosted my clients' websites on my own physical server, set up together with a DevOps engineer friend. That is where my interest in the infrastructure side started.</p>
+    </div>
+    <div class="job">
+      <div class="head"><strong>Junior, then Full-stack Developer, Creative Brand Solutions Kft.</strong><span class="d">Feb 2020 – Feb 2023</span></div>
+      <p>Started with small WordPress projects and grew into full-stack Laravel and Vue work on webshops, landing pages and the systems behind them. My last big project there was a worksheet management system for a car repair shop. I led it and finished it before leaving, and the shop still runs on it.</p>
+    </div>
+
+    <h2 id="education">Education</h2>
+    <div class="job">
+      <div class="head"><strong>Computer Science, Eötvös Loránd University (ELTE), Budapest</strong><span class="d">2017 – 2020</span></div>
+      <p>Three years of study. I left for a full-time developer job and didn't finish the degree.</p>
+    </div>
+
+    <h2 id="projects">Projects</h2>
+    <ul>
+      <li><strong>Automated bug validation with Claude</strong> <span class="muted">(Optimy, 2026)</span>. Validating bug tickets was the support team's biggest time sink since I joined: reproduce the issue, read the code, check the logs, decide if it's real. I started by writing a Claude skill that could do this, then built the setup around it: Jira webhooks trigger a run, Claude has access to the repositories and logs, and the ticket comes back validated. It now runs without any human interaction.</li>
+      <li><strong>Asset and contract management platform</strong> <span class="muted">(freelance, 2023)</span>. Contract follow-up, income and invoices for hundreds of properties, email communication with clients, an interactive map of parking spots at the depots, photos of utility meter readings, and dashboards. Laravel and Vue, built solo, in production since December 2023.</li>
+      <li><strong>Worksheet manager for a car repair shop</strong> <span class="muted">(Creative Brand Solutions, 2022 – 23)</span>. A system for managing the shop's worksheets day to day. I led the project and delivered it before leaving the company. Still in daily use.</li>
+      <li><strong>L2 process documentation and automation</strong> <span class="muted">(Optimy, 2024)</span>. Documented every manual support process, automated the repetitive ones, and moved several into the product. The team now spends much less time on routine work.</li>
+    </ul>
+
+    <h2 id="side-projects">Side projects</h2>
+    <ul>
+      <li><strong>NFL pick'em</strong> <span class="muted">(2023 – present)</span>. An invite-only site where my friends and I pick the winners of every NFL game each week and compete on a leaderboard over the season. Weekly pick forms, results, a scoreboard and admin tools for setting up the season. Laravel, Vue and Tailwind. Started in December 2023 and still getting new features every season.</li>
+      <li><strong>Photography portfolio</strong> <span class="muted">(2026)</span>. A website for my girlfriend's photography work: galleries, an about page and a way for clients to get in touch.</li>
+    </ul>
+
+    <h2 id="writing-home">Writing</h2>
+    <ul class="dated" id="latest-posts"></ul>
+    <p><a href="#writing">All posts</a></p>
+
+    <footer>
+      <span>© 2026 Your Name</span>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#writing">RSS</a>
+    </footer>
+  </main>
+
+  <!-- ===== writing index ===== -->
+  <main id="view-writing" hidden>
+    <h1>Writing</h1>
+    <p style="margin-top:1rem" class="muted">Notes on running software in production: Kubernetes, Postgres, CI pipelines and the occasional post-mortem. Mostly things I wish I had read earlier.</p>
+    <div id="all-posts"></div>
+    <footer>
+      <span>© 2026 Your Name</span>
+      <a href="#home">About</a>
+      <a href="#writing">RSS</a>
+    </footer>
+  </main>
+
+  <!-- ===== single post ===== -->
+  <main id="view-post" hidden>
+    <article id="article"></article>
+  </main>
+</div>
+
+<script>
+(function () {
+  const posts = [
+    {
+      slug: 'post-rotating-k8s-secrets',
+      title: 'Rotating Kubernetes secrets without downtime',
+      sub: 'Why mounted Secrets go stale, and a reload pattern that works with ArgoCD.',
+      date: '2026-09-28',
+      body: `
+<p>Every team I've joined had the same quiet problem: database passwords that had not been rotated since the cluster was built. Not because nobody cared, but because rotation meant a restart, and a restart meant someone had to be awake for it.</p>
+<p>This post walks through the setup we ended up with. Secrets live in AWS Secrets Manager, land in the cluster through External Secrets Operator, and pods pick up the new value without a human in the loop.</p>
+<h3>Why mounted secrets go stale</h3>
+<p>A Secret mounted as a volume is updated eventually by the kubelet, but a Secret exposed as an environment variable is read once at container start and never again. Most apps read <code>DATABASE_URL</code> from the environment, so rotation looks like it worked while the app keeps using the old password until it restarts.</p>
+<pre><code># external-secret.yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: orders-db
+spec:
+  refreshInterval: 1h
+  secretStoreRef: { name: aws, kind: ClusterSecretStore }
+  target:
+    name: orders-db
+    template:
+      metadata:
+        annotations:
+          reloader.stakater.com/match: "true"
+  data:
+    - secretKey: DATABASE_URL
+      remoteRef: { key: prod/orders/db, property: url }</code></pre>
+<p class="note">Keep two valid credentials during rotation. Postgres makes this cheap: create the new role, grant it, swap the secret, then drop the old role a day later once nothing is logging in with it.</p>
+<h3>Triggering the rollout</h3>
+<p>Reloader watches Secrets with that annotation and patches the Deployment's pod template when the content hash changes. That gives you a normal rolling update with your existing readiness probes and surge settings, instead of a bespoke restart script.</p>
+<p>The piece people miss is ArgoCD. If the Deployment is managed by Argo, Reloader's patch shows up as drift. Either ignore the <code>reloader.stakater.com/last-reloaded-from</code> annotation in your diff settings or let Argo own the restart with a sync hook. We went with the ignore rule. It is one line and keeps the mental model simple.</p>`
+    },
+    {
+      slug: 'post-postgres-single-vm',
+      title: 'What I learned running Postgres on a single VM for three years',
+      sub: 'Backups you actually test, the two settings that mattered, and when we finally moved.',
+      date: '2026-05-11',
+      body: `
+<p>Managed databases are great, and for a long time we didn't use one. One Hetzner VM, 8 vCPU, local NVMe, and a Postgres instance that served a logistics product for three years with two incidents. Here is what made that workable and what finally made us move.</p>
+<h3>Backups are only backups if you restore them</h3>
+<p>We used pgBackRest with a full backup weekly, differentials nightly and WAL archiving to object storage. The part that mattered was a Monday cron job that restored the latest backup to a scratch VM, ran a row-count check against production, and posted the numbers to Slack. The one time the archive was silently broken, that job caught it in under 24 hours.</p>
+<h3>The two settings that mattered</h3>
+<p>Almost everything else stayed at defaults. <code>shared_buffers</code> at a quarter of RAM and a sensible <code>work_mem</code> did more than any index we added that year. Autovacuum needed tuning once, when a hot table started bloating. Lowering its scale factor for that table alone fixed it.</p>
+<p class="note">If you can't say how long a restore takes, you don't have a recovery time objective. You have a hope.</p>
+<p>We moved to a managed service when the business needed read replicas in a second region. Not because the VM failed us, but because the next feature was someone else's job to be good at.</p>`
+    },
+    {
+      slug: 'post-actions-cache-strategy',
+      title: 'A GitHub Actions cache strategy that actually hits',
+      sub: 'Keyed on the lockfile, restored by prefix, and measured so you know it works.',
+      date: '2025-11-03',
+      body: `
+<p>Most Actions workflows I review have a cache step. Most of those caches rarely hit. The usual reasons: a key that includes the commit SHA, no restore-keys fallback, or a cache saved on pull requests that is invisible to the main branch because of how scopes work.</p>
+<h3>Key on inputs, not on outputs</h3>
+<p>The key should change exactly when the cached content would change. For dependencies that is the lockfile hash and the runner OS, nothing else. Add a restore-keys prefix so a changed lockfile still restores the previous cache and only downloads the delta.</p>
+<pre><code>- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: \${{ runner.os }}-npm-\${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      \${{ runner.os }}-npm-</code></pre>
+<h3>Measure it</h3>
+<p>The cache action reports <code>cache-hit</code> as an output, but nobody reads it. I wrote a tiny action that collects those outputs across steps and annotates the run with hit ratios. Once the numbers were visible, two of our five caches turned out to be dead weight and were removed.</p>`
+    },
+    {
+      slug: 'post-terraform-state-mistakes',
+      title: 'Terraform state: the mistakes I keep seeing',
+      sub: 'One state per lifecycle, locking, and what to do when someone applies locally.',
+      date: '2025-06-19',
+      body: `
+<p>Terraform's state file is the thing most teams understand least and depend on most. These are the problems I've hit on more than one team, with what we did about each.</p>
+<h3>One giant state</h3>
+<p>Everything in a single root module means every plan touches every resource and every mistake has the widest possible blast radius. Split by lifecycle: networking changes rarely, application infra changes daily. Separate states, with outputs passed through explicit variables rather than remote state lookups where you can.</p>
+<h3>No locking</h3>
+<p>Two people applying at the same time is how you get a half-created VPC. S3 with DynamoDB locking, or any backend with native locking, is non-negotiable the moment there is more than one engineer.</p>
+<h3>Local applies</h3>
+<p>If plans can run from laptops, they will. Move apply into CI with a required review on the plan output. The diff in the pull request becomes the change record, which is also what your auditors will ask for later.</p>
+<p class="note">When state and reality disagree, <code>terraform import</code> and <code>terraform state rm</code> are your friends. Practise them on a sandbox before you need them in anger.</p>`
+    },
+    {
+      slug: 'post-alert-on-symptoms',
+      title: 'Alerting on symptoms, not causes',
+      sub: 'How we rewrote our Prometheus rules around user-facing SLOs and cut pages by 80%.',
+      date: '2025-02-02',
+      body: `
+<p>Our first alerting setup paged on CPU above 80%, memory above 90%, disk above 85%, and a pod restart count above three. It woke people up constantly and almost never for something a user noticed.</p>
+<h3>What users feel</h3>
+<p>Users feel latency and errors. So we defined two SLOs per service: 99.5% of requests under 400 ms and an error rate under 0.5%, both measured at the ingress. Alerts fire on burn rate against those budgets, with a fast window for sudden outages and a slow window for gradual degradation.</p>
+<h3>What happened to the old alerts</h3>
+<p>They became dashboard panels and a daily digest. CPU at 85% is a capacity planning conversation for Tuesday, not a reason to wake someone at 3 a.m. Pages dropped by roughly 80% in the first month, and the ones that remained all pointed at real problems.</p>`
+    }
+  ];
+
+  const bySlug = Object.fromEntries(posts.map(p => [p.slug, p]));
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const full = d => { const [y, m, day] = d.split('-'); return `${M[+m - 1]} ${+day}, ${y}`; };
+  const short = d => { const [, m, day] = d.split('-'); return `${M[+m - 1]} ${+day}`; };
+
+  document.getElementById('latest-posts').innerHTML = posts.slice(0, 4).map(p =>
+    `<li><span class="d">${full(p.date)}</span><span><a href="#${p.slug}">${p.title}</a></span></li>`).join('');
+
+  const years = [...new Set(posts.map(p => p.date.slice(0, 4)))];
+  document.getElementById('all-posts').innerHTML = years.map(y =>
+    `<h2 class="year">${y}</h2><ul class="dated">${posts.filter(p => p.date.startsWith(y)).map(p =>
+      `<li><span class="d">${short(p.date)}</span><span><a href="#${p.slug}">${p.title}</a><span class="sub">${p.sub}</span></span></li>`).join('')}</ul>`).join('');
+
+  function renderPost(p) {
+    const i = posts.indexOf(p), older = posts[i + 1], newer = posts[i - 1];
+    document.getElementById('article').innerHTML = `
+      <h1>${p.title}</h1>
+      <p class="meta">${full(p.date)}</p>
+      ${p.body}
+      <nav class="pager">
+        <span>${older ? `← <a href="#${older.slug}">${older.title}</a>` : ''}</span>
+        <span>${newer ? `<a href="#${newer.slug}">${newer.title}</a> →` : ''}</span>
+      </nav>
+      <footer><span>© 2026 Your Name</span><a href="#writing">All posts</a><a href="#home">About</a></footer>`;
+  }
+
+  const views = { home: document.getElementById('view-home'), writing: document.getElementById('view-writing'), post: document.getElementById('view-post') };
+  const navLinks = [...document.querySelectorAll('header nav a[data-nav]')];
+  function show(name, current) {
+    Object.entries(views).forEach(([k, el]) => { el.hidden = k !== name; });
+    navLinks.forEach(a => { if (a.dataset.nav === current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  }
+  function route() {
+    const h = (location.hash || '#home').slice(1);
+    if (bySlug[h]) { renderPost(bySlug[h]); show('post', 'writing'); window.scrollTo(0, 0); return; }
+    if (h === 'writing') { show('writing', 'writing'); window.scrollTo(0, 0); return; }
+    if (h === 'cv') { return; }
+    const wasHidden = views.home.hidden;
+    show('home', h === 'projects' ? 'projects' : 'home');
+    if (h === 'projects' || h === 'experience' || h === 'education' || h === 'side-projects') { document.getElementById(h).scrollIntoView(); }
+    else if (wasHidden || !location.hash) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  // theme: auto -> light -> dark, stored per browser
+  const root = document.documentElement, themeBtn = document.getElementById('theme');
+  const order = ['auto', 'light', 'dark'];
+  function applyTheme(t) {
+    if (t === 'auto') root.removeAttribute('data-theme'); else root.dataset.theme = t;
+    themeBtn.textContent = t;
+    try { localStorage.setItem('theme', t); } catch (e) {}
+  }
+  let saved = 'auto'; try { saved = localStorage.getItem('theme') || 'auto'; } catch (e) {}
+  applyTheme(order.includes(saved) ? saved : 'auto');
+  themeBtn.addEventListener('click', () => applyTheme(order[(order.indexOf(themeBtn.textContent) + 1) % order.length]));
+
+  // placeholders for things the live site would do
+  function note(el, text) {
+    const old = el.textContent; el.textContent = text; setTimeout(() => { el.textContent = old; }, 1800);
+  }
+  document.querySelectorAll('a[href="#cv"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); note(a, 'links to your PDF on the live site'); }));
+  document.getElementById('email').addEventListener('click', e => {
+    e.preventDefault();
+    const a = e.currentTarget, txt = a.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => note(a, 'copied'), () => {});
+  });
+})();
+</script>
