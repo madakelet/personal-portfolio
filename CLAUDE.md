@@ -4,16 +4,18 @@ Personal website for a software developer / DevOps engineer. It has to work
 as a CV (recruiters land here) and host a blog (a few articles, written
 occasionally). Owner is the repo author; see "Content" for who they are.
 
-Status (2026-10-16): design and content are settled in a single-file
-prototype. The real site has not been scaffolded yet.
+Status (2026-10-16): phase 1 is built. Laravel 13 serves the landing page
+with Blade and Tailwind 4 in English, Dutch and Hungarian under `/en`,
+`/nl` and `/hu`. Phase 2 (login, blog, admin) has not started.
 
 ## Start here
 
+- `README.md` covers local setup, where content lives and the Plesk deploy.
 - `prototype/prototype.html` is the approved design and copy. Open it in a
   browser. It is a plain HTML file with inline CSS/JS and hash routing; the
   CV content is real, the blog posts are samples. Note: it has no
   `<!doctype>`/`<html>`/`<head>`/`<body>` wrapper because it was written
-  for a hosted preview. Add those when porting.
+  for a hosted preview. The port is done; it remains the design reference.
 - Design notes and the build plan live in the owner's Obsidian vault, not in
   this repo: `~/dev/obsidian/madakelet/Portfolio/` ("Portfolio design notes",
   "Portfolio site implementation plan"). Do not add planning docs here.
@@ -74,17 +76,27 @@ Owner: Hungarian software developer / DevOps engineer living in Belgium.
   Laravel 10 + Vue 3 + Tailwind, since Dec 2023, active); portfolio site
   for their girlfriend, a photographer (2026).
 
-Still placeholders in the prototype: the owner's name ("Your Name"), email,
-GitHub and LinkedIn URLs, the photography site description and both side
-project URLs, and all blog posts.
+Still placeholders: the owner's name ("Your Name"), email, GitHub and
+LinkedIn URLs and both side project URLs, all in `config/site.php`. The
+prototype's blog posts are throwaway samples and were not ported.
 
-## Suggested next steps
+## Architecture (decided)
 
-1. Pick a static site generator. Astro (Markdown/MDX content collections,
-   RSS, tag pages for free) or Hugo. Owner's stack is PHP/Laravel/Vue, so
-   Astro with no framework components is the lightest fit.
-2. Port the prototype: pages `/` (about, experience, education, projects,
-   side projects, latest writing), `/writing/` (year-grouped), `/writing/<slug>/`,
-   `/cv.pdf`. Keep the CSS hand-written; the prototype's is about 100 lines.
-3. Fill in the placeholders listed above.
-4. Deploy to Cloudflare Pages or GitHub Pages.
+- Hosting is a Plesk server: PHP only, no long-running Node. So the public
+  site is Blade with about 30 lines of vanilla JS (`resources/js/site.js`).
+  Vue + Inertia come in phase 2 for the admin under `/admin` only.
+- Composer's platform is pinned to PHP 8.3, the lowest version deployed to.
+- Copy lives in `lang/{en,nl,hu}/cv.php`; a test enforces identical keys.
+- CI deploys to Plesk via rsync and `scripts/activate-release.sh`, gated by
+  the `DEPLOY_ENABLED` repository variable.
+- Commits use the owner's identity only. Never add a Claude co-author
+  trailer.
+
+## Next steps
+
+1. Fill in the placeholders in `config/site.php` and add `public/cv.pdf`.
+2. Configure Plesk and the GitHub secrets (README), set `DEPLOY_ENABLED`.
+3. Phase 2: posts table (slug, title, excerpt, Markdown body, locale, tags,
+   published_at), public `/{locale}/blog` pages in Blade, RSS, Fortify
+   login with a single owner account, Inertia + Vue admin. "Blog", not
+   "Writing", in the nav.
