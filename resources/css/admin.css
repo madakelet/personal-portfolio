@@ -40,3 +40,7 @@ input:focus-visible, textarea:focus-visible { outline: 2px solid var(--link); ou
 
 .text-date { max-width: 20rem; }
 .date-help { font-size: .8rem; margin: .25rem 0 0; }
+
+/* projects editor */
+.project-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; margin-bottom: .75rem; }
+.project-tools { margin-left: auto; display: flex; gap: .4rem; }

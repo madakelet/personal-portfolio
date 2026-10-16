@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleRedirectController;
@@ -24,4 +25,10 @@ Route::prefix('admin')
         Route::get('texts', [TextController::class, 'index'])->name('admin.texts');
         Route::put('texts', [TextController::class, 'update'])->name('admin.texts.update');
         Route::delete('texts', [TextController::class, 'destroy'])->name('admin.texts.reset');
+
+        Route::get('projects', [ProjectController::class, 'index'])->name('admin.projects');
+        Route::post('projects', [ProjectController::class, 'store'])->name('admin.projects.store');
+        Route::put('projects/{project}', [ProjectController::class, 'update'])->name('admin.projects.update');
+        Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('admin.projects.destroy');
+        Route::post('projects/{project}/move', [ProjectController::class, 'move'])->name('admin.projects.move');
     });
