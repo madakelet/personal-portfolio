@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\LocaleRedirectController;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\SetLocale;
@@ -19,4 +20,7 @@ Route::prefix('admin')
     ->middleware(['auth', HandleInertiaRequests::class])
     ->group(function () {
         Route::inertia('/', 'Admin/Home')->name('admin');
+        Route::get('texts', [TextController::class, 'index'])->name('admin.texts');
+        Route::put('texts', [TextController::class, 'update'])->name('admin.texts.update');
+        Route::delete('texts', [TextController::class, 'destroy'])->name('admin.texts.reset');
     });
