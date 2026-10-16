@@ -6,7 +6,9 @@ occasionally). Owner is the repo author; see "Content" for who they are.
 
 Status (2026-10-16): phase 1 is built. Laravel 13 serves the landing page
 with Blade and Tailwind 4 in English, Dutch and Hungarian under `/en`,
-`/nl` and `/hu`. Phase 2 (login, blog, admin) has not started.
+`/nl` and `/hu`. Phase 2a is built too: owner login and an admin at
+`/admin/texts` to edit every text per language. The blog (phase 2) has
+not started.
 
 ## Start here
 
@@ -86,9 +88,16 @@ prototype's blog posts are throwaway samples and were not ported.
 
 - Hosting is a Plesk server: PHP only, no long-running Node. So the public
   site is Blade with about 30 lines of vanilla JS (`resources/js/site.js`).
-  Vue + Inertia come in phase 2 for the admin under `/admin` only.
+  Vue + Inertia (no SSR) are used for the admin under `/admin` only, with
+  separate Vite entries so Vue never loads on the public site.
 - Composer's platform is pinned to PHP 8.3, the lowest version deployed to.
-- Copy lives in `lang/{en,nl,hu}/cv.php`; a test enforces identical keys.
+- Copy lives in `lang/{en,nl,hu}/{cv,ui}.php`; a test enforces identical
+  keys. These are defaults: rows in the `translations` table (edited in
+  the admin) override them via `App\Translation\DatabaseOverrideLoader`.
+  `App\Translation\TextCatalog` decides which keys are editable.
+  `php artisan texts:export` writes edits back into the files.
+- Auth is Fortify with login/logout only, one owner account from
+  `php artisan make:owner`. No registration or password reset.
 - Hosting is Plesk, deployed by hand by the owner. No GitHub Actions and
   no Plesk deploy pipeline; the owner asked for neither. Do not add one.
 - Commits use the owner's identity only. Never add a Claude co-author
@@ -99,6 +108,5 @@ prototype's blog posts are throwaway samples and were not ported.
 1. Fill in the placeholders listed above and add `public/cv.pdf`.
 2. Set up the site on Plesk (requirements in README).
 3. Phase 2: posts table (slug, title, excerpt, Markdown body, locale, tags,
-   published_at), public `/{locale}/blog` pages in Blade, RSS, Fortify
-   login with a single owner account, Inertia + Vue admin. "Blog", not
-   "Writing", in the nav.
+   published_at), public `/{locale}/blog` pages in Blade, RSS, and a posts
+   editor in the existing admin. "Blog", not "Writing", in the nav.
