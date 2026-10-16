@@ -28,10 +28,13 @@ class HomePageTest extends TestCase
 
     public function test_name_is_translated_per_locale(): void
     {
-        app('translator')->addLines(['ui.name' => 'Test Name'], 'en');
+        app('translator')->addLines(['ui.name' => 'Test Name', 'ui.header_name' => 'tname'], 'en');
         app('translator')->addLines(['ui.name' => 'Név Teszt'], 'hu');
 
-        $this->get('/en')->assertSee('<h1>Test Name</h1>', false)->assertSee('class="name" href="'.url('/en').'">Test Name</a>', false);
+        $this->get('/en')
+            ->assertSee('<h1>Test Name</h1>', false)
+            ->assertSee('class="name" href="'.url('/en').'">tname</a>', false)
+            ->assertDontSee('">Test Name</a>', false);
         $this->get('/hu')->assertSee('<h1>Név Teszt</h1>', false)->assertSee('© '.date('Y').' Név Teszt', false);
     }
 

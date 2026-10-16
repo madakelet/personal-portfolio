@@ -1,7 +1,10 @@
 <?php
 
 return [
-    'name' => 'Your Name', // TODO
+    // Page heading, footer, browser title.
+    'name' => 'Adam Telek', // TODO
+    // Top bar, after the ~/ prefix.
+    'header_name' => 'Adam Telek', // TODO
 
     'meta' => [
         'tagline' => 'Software developer and DevOps engineer',

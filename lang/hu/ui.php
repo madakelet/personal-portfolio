@@ -2,7 +2,10 @@
 
 return [
     // Hungarian order: family name first.
+    // Page heading, footer, browser title.
     'name' => 'Your Name', // TODO
+    // Top bar, after the ~/ prefix.
+    'header_name' => 'Your Name', // TODO
 
     'meta' => [
         'tagline' => 'Szoftverfejlesztő és DevOps mérnök',
