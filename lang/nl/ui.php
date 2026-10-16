@@ -4,6 +4,7 @@ return [
     'meta' => [
         'tagline' => 'Softwareontwikkelaar en DevOps-engineer',
         'description' => 'Softwareontwikkelaar en DevOps-engineer uit Hongarije, woonachtig in België. Laravel, Vue, Kubernetes en AWS.',
+        'og_locale' => 'nl_BE',
     ],
     'nav' => [
         'label' => 'Hoofdmenu',

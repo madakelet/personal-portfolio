@@ -2,6 +2,7 @@
 @php
     $siteName = config('site.name');
     $pageTitle = $title ? $title.' · '.$siteName : $siteName.' · '.__('ui.meta.tagline');
+    $pageDescription = $description ?? __('ui.meta.description');
 @endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
@@ -9,7 +10,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle }}</title>
-    <meta name="description" content="{{ $description ?? __('ui.meta.description') }}">
+    <meta name="description" content="{{ $pageDescription }}">
+    @include('partials.head-meta', ['title' => $pageTitle, 'description' => $pageDescription])
     {{-- Apply the stored theme before first paint so dark mode never flashes. --}}
     <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

@@ -57,4 +57,14 @@ class LocaleTest extends TestCase
             ->assertSee('href="'.url('/hu').'"', false)
             ->assertSee('aria-current="true">nl</a>', false);
     }
+
+    public function test_head_lists_every_language_version(): void
+    {
+        $this->get('/hu')
+            ->assertSee('<link rel="canonical" href="'.url('/hu').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="en" href="'.url('/en').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="nl" href="'.url('/nl').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="x-default" href="'.url('/').'">', false)
+            ->assertSee('<meta property="og:locale" content="hu_HU">', false);
+    }
 }

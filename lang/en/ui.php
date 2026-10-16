@@ -4,6 +4,7 @@ return [
     'meta' => [
         'tagline' => 'Software developer and DevOps engineer',
         'description' => 'Software developer and DevOps engineer from Hungary, living in Belgium. Laravel, Vue, Kubernetes and AWS.',
+        'og_locale' => 'en_GB',
     ],
     'nav' => [
         'label' => 'Main',
