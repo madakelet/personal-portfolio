@@ -7,5 +7,6 @@
             <a href="{{ asset(config('site.cv_pdf')) }}">{{ __('ui.nav.cv') }}</a>
         @endif
         <button type="button" id="theme" aria-label="{{ __('ui.nav.theme') }}">auto</button>
+        @include('partials.locale-switcher')
     </nav>
 </header>
