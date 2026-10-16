@@ -39,7 +39,14 @@ class ExportTexts extends Command
             }
 
             $lines = require $path;
+            $catalog = app(TextCatalog::class);
             foreach ($rows as $row) {
+                // Edits to texts that no longer exist (e.g. a removed nav link) are not written back.
+                if (! $catalog->isEditable($group, $row->key)) {
+                    $this->warn("Skipped {$file}: {$row->key} no longer exists.");
+
+                    continue;
+                }
                 Arr::set($lines, $row->key, $row->value);
             }
 

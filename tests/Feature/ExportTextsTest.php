@@ -56,6 +56,15 @@ class ExportTextsTest extends TestCase
         $this->assertSame(0, Translation::count());
     }
 
+    public function test_edits_to_removed_texts_are_not_written_back(): void
+    {
+        Translation::create(['locale' => 'hu', 'group' => 'ui', 'key' => 'nav.removed_link', 'value' => 'Régi']);
+
+        $this->artisan('texts:export')->assertSuccessful();
+
+        $this->assertArrayNotHasKey('removed_link', (require $this->langCopy.'/hu/ui.php')['nav']);
+    }
+
     public function test_nothing_to_export(): void
     {
         $this->artisan('texts:export')->expectsOutput('No edited texts to export.')->assertSuccessful();

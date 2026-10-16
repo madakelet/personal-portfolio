@@ -14,7 +14,6 @@ return [
     'nav' => [
         'label' => 'Főmenü',
         'about' => 'Rólam',
-        'projects' => 'Projektek',
         'cv' => 'Önéletrajz (PDF)',
         'theme' => 'Színtéma váltása',
         'language' => 'Nyelv',

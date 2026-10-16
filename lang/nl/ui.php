@@ -14,7 +14,6 @@ return [
     'nav' => [
         'label' => 'Hoofdmenu',
         'about' => 'Over mij',
-        'projects' => 'Projecten',
         'cv' => 'CV (pdf)',
         'theme' => 'Kleurthema wisselen',
         'language' => 'Taal',
