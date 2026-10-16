@@ -8,7 +8,7 @@
 
 return [
 
-    'email' => 'hello@yourdomain.dev', // TODO
+    'email' => 'telekadam@telekadam.com', // TODO
 
     // Profile links come from .env. The footer hides an empty one, but the
     // contact sentence on the home page expects both to be set.
