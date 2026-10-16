@@ -30,8 +30,13 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // The Blog link and RSS link only show once something is published.
-        View::composer(['partials.header', 'partials.footer'], function ($view) {
-            $view->with('hasPosts', once(fn () => Post::query()->published()->exists()));
+        View::composer(['partials.header', 'partials.footer', 'partials.head-meta'], function ($view) {
+            // One query per request, shared by the three partials.
+            $attributes = request()->attributes;
+            if (! $attributes->has('hasPosts')) {
+                $attributes->set('hasPosts', Post::query()->published()->exists());
+            }
+            $view->with('hasPosts', $attributes->get('hasPosts'));
         });
     }
 }

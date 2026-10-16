@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocaleRedirectController;
 use App\Http\Middleware\HandleInertiaRequests;
@@ -10,6 +11,7 @@ use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', LocaleRedirectController::class)->name('root');
+Route::get('feed.xml', FeedController::class)->name('feed');
 
 Route::prefix('{locale}')
     ->where(['locale' => implode('|', array_keys(config('site.locales')))])

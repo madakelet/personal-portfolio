@@ -22,3 +22,6 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ $canonical }}">
 <meta property="og:locale" content="{{ __('ui.meta.og_locale') }}">
+@if ($hasPosts)
+    <link rel="alternate" type="application/rss+xml" title="{{ __('ui.name') }}" href="{{ route('feed') }}">
+@endif

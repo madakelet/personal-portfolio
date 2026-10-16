@@ -6,4 +6,7 @@
     @if (config('site.linkedin'))
         <a href="{{ config('site.linkedin') }}" rel="noopener" target="_blank">LinkedIn</a>
     @endif
+    @if ($hasPosts)
+        <a href="{{ route('feed') }}">{{ __('ui.blog.rss') }}</a>
+    @endif
 </footer>
