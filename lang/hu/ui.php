@@ -23,7 +23,6 @@ return [
         'experience' => 'Tapasztalat',
         'education' => 'Tanulmányok',
         'projects' => 'Projektek',
-        'side_projects' => 'Hobbiprojektek',
     ],
     'dates' => [
         'month' => 'YYYY. MMM',

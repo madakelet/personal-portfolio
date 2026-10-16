@@ -17,7 +17,7 @@ class ProjectController extends Controller
     {
         return Inertia::render('Admin/Projects', [
             'locales' => config('site.locales'),
-            'projects' => Project::query()->ordered()->get(['id', 'position', ...Project::FIELDS]),
+            'projects' => Project::query()->ordered()->get(['id', 'position', 'url', ...Project::FIELDS]),
         ]);
     }
 
@@ -74,10 +74,10 @@ class ProjectController extends Controller
         });
     }
 
-    /** English title and body are required; other languages fall back to English when empty. */
+    /** English title and body are required; other languages fall back to English when empty. The link is optional. */
     private function validated(Request $request): array
     {
-        $rules = [];
+        $rules = ['url' => ['nullable', 'url:https,http', 'max:255']];
         foreach (array_keys(config('site.locales')) as $locale) {
             $required = $locale === 'en' ? 'required' : 'nullable';
             $rules["title.{$locale}"] = [$required, 'string', 'max:255'];
@@ -88,7 +88,7 @@ class ProjectController extends Controller
         $data = $request->validate($rules, [], ['title.en' => 'English title', 'body.en' => 'English text']);
 
         // Store every locale key, empty ones as "" so the shape stays the same.
-        $out = [];
+        $out = ['url' => $data['url'] ?? null];
         foreach (Project::FIELDS as $field) {
             foreach (array_keys(config('site.locales')) as $locale) {
                 $out[$field][$locale] = (string) ($data[$field][$locale] ?? '');

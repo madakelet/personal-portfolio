@@ -23,7 +23,6 @@ return [
         'experience' => 'Ervaring',
         'education' => 'Opleiding',
         'projects' => 'Projecten',
-        'side_projects' => 'Nevenprojecten',
     ],
     'dates' => [
         'month' => 'MMM YYYY',

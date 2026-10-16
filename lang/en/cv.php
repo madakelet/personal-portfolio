@@ -47,18 +47,4 @@ return [
             'body' => 'Three years of study. I left for a full-time developer job and didn\'t finish the degree.',
         ],
     ],
-
-    // Keys match config('site.side_project_urls') for optional links.
-    'side_projects' => [
-        'nfl' => [
-            'title' => 'NFL pick\'em',
-            'meta' => '2023 – present',
-            'body' => 'An invite-only site where my friends and I pick the winners of every NFL game each week and compete on a leaderboard over the season. Weekly pick forms, results, a scoreboard and admin tools for setting up the season. Laravel, Vue and Tailwind. Started in December 2023 and still getting new features every season.',
-        ],
-        'photography' => [
-            'title' => 'Photography portfolio',
-            'meta' => '2026',
-            'body' => 'A website for my girlfriend\'s photography work: galleries, an about page and a way for clients to get in touch.',
-        ],
-    ],
 ];

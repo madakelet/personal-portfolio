@@ -19,12 +19,6 @@ return [
     // Path under public/. The CV link is hidden until this file exists.
     'cv_pdf' => 'cv.pdf',
 
-    // Optional links for the side projects; the title is plain text while null.
-    'side_project_urls' => [
-        'nfl' => null, // TODO
-        'photography' => null, // TODO
-    ],
-
     // Supported locales, in switcher order. The first one is the fallback.
     'locales' => [
         'en' => 'English',

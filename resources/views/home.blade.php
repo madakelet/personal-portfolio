@@ -27,16 +27,8 @@
         <h2 id="projects">{{ __('ui.sections.projects') }}</h2>
         <ul>
             @foreach ($projects as $project)
-                <li><strong>{{ $project->translated('title') }}</strong>@if ($project->translated('meta') !== '') <span class="muted">({{ $project->translated('meta') }})</span>@endif. {!! $project->translated('body') !!}</li>
+                <li><strong>@if ($project->url)<a href="{{ $project->url }}" target="_blank" rel="noopener">{{ $project->translated('title') }}</a>@else{{ $project->translated('title') }}@endif</strong>@if ($project->translated('meta') !== '') <span class="muted">({{ $project->translated('meta') }})</span>@endif. {!! $project->translated('body') !!}</li>
             @endforeach
         </ul>
     @endif
-
-    <h2 id="side-projects">{{ __('ui.sections.side_projects') }}</h2>
-    <ul>
-        @foreach (__('cv.side_projects') as $key => $project)
-            @php($url = config("site.side_project_urls.{$key}"))
-            <li><strong>@if ($url)<a href="{{ $url }}" target="_blank" rel="noopener">{{ $project['title'] }}</a>@else{{ $project['title'] }}@endif</strong> <span class="muted">({{ $project['meta'] }})</span>. {!! $project['body'] !!}</li>
-        @endforeach
-    </ul>
 </x-layout>

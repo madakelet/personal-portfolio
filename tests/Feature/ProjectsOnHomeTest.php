@@ -10,24 +10,31 @@ class ProjectsOnHomeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_the_migration_brings_over_the_four_projects_in_order(): void
+    public function test_the_migrations_leave_the_personal_projects_in_order(): void
     {
-        $this->assertSame(4, Project::count());
+        $this->assertSame(3, Project::count());
 
-        $this->get('/en')->assertSeeInOrder([
-            'Automated bug validation with Claude',
-            'Asset and contract management platform',
-            'Worksheet manager for a car repair shop',
-            'L2 process documentation and automation',
-        ]);
-        $this->get('/hu')->assertSee('Automatikus hibavalidálás Claude-dal');
+        $this->get('/en')
+            ->assertSeeInOrder(["NFL pick'em", 'Photography portfolio', 'This website'], false)
+            ->assertDontSee('Automated bug validation with Claude')
+            ->assertDontSee('Side projects');
+        $this->get('/hu')->assertSeeInOrder(['NFL tippjáték', 'Fotós portfólió', 'Ez a weboldal']);
     }
 
     public function test_projects_follow_their_position(): void
     {
         Project::query()->ordered()->first()->update(['position' => 99]);
 
-        $this->get('/en')->assertSeeInOrder(['Asset and contract management platform', 'Automated bug validation with Claude']);
+        $this->get('/en')->assertSeeInOrder(['Photography portfolio', "NFL pick'em"], false);
+    }
+
+    public function test_the_title_links_only_when_a_url_is_set(): void
+    {
+        Project::query()->ordered()->first()->update(['url' => 'https://picks.example.test']);
+
+        $this->get('/en')
+            ->assertSee('<a href="https://picks.example.test" target="_blank" rel="noopener">NFL pick&#039;em</a>', false)
+            ->assertSee('<strong>Photography portfolio</strong>', false);
     }
 
     public function test_an_empty_translation_falls_back_to_english(): void

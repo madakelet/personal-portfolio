@@ -45,17 +45,4 @@ return [
             'body' => 'Három évig tanultam. Egy teljes munkaidős fejlesztői állás miatt abbahagytam, a diplomát nem szereztem meg.',
         ],
     ],
-
-    'side_projects' => [
-        'nfl' => [
-            'title' => 'NFL tippjáték',
-            'meta' => '2023 – jelenleg',
-            'body' => 'Meghívásos oldal, ahol a barátaimmal minden héten megtippeljük az összes NFL-meccs győztesét, és a szezon során ranglistán versenyzünk. Heti tippűrlapok, eredmények, pontozótábla és adminfelület a szezon beállításához. Laravel, Vue és Tailwind. 2023 decemberében indult, és minden szezonban kap új funkciókat.',
-        ],
-        'photography' => [
-            'title' => 'Fotós portfólió',
-            'meta' => '2026',
-            'body' => 'Weboldal a barátnőm fotós munkáihoz: galériák, bemutatkozó oldal, és egy lehetőség, hogy az ügyfelek felvegyék vele a kapcsolatot.',
-        ],
-    ],
 ];

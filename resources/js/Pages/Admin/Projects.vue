@@ -13,8 +13,11 @@ const errors = computed(() => page.props.errors ?? {});
 const fields = ['title', 'meta', 'body'];
 const codes = computed(() => Object.keys(props.locales));
 
-const blank = () => Object.fromEntries(fields.map((f) => [f, Object.fromEntries(codes.value.map((l) => [l, '']))]));
-const copy = (project) => Object.fromEntries(fields.map((f) => [f, { ...blank()[f], ...(project[f] ?? {}) }]));
+const blank = () => ({ url: '', ...Object.fromEntries(fields.map((f) => [f, Object.fromEntries(codes.value.map((l) => [l, '']))])) });
+const copy = (project) => ({
+    url: project.url ?? '',
+    ...Object.fromEntries(fields.map((f) => [f, { ...blank()[f], ...(project[f] ?? {}) }])),
+});
 
 // Editable copies per project id, refreshed when the server sends new data.
 const drafts = reactive({});
@@ -62,7 +65,8 @@ const rowsFor = (text) => Math.min(14, Math.max(3, Math.ceil((text ?? '').length
         <h1>Projects</h1>
         <p class="muted texts-help">
             The "Projects" list on the home page, in this order. English title and text are required; an empty Dutch or
-            Hungarian field shows the English text. Meta is the grey part in brackets, e.g. "Optimy, 2026".
+            Hungarian field shows the English text. Meta is the grey part in brackets, e.g. "2023 – present". With a link,
+            the title links to it.
         </p>
         <p v-for="(message, field) in errors" :key="field" class="error">{{ message }}</p>
 
@@ -75,6 +79,10 @@ const rowsFor = (text) => Math.min(14, Math.max(3, Math.ceil((text ?? '').length
                     <button type="button" class="btn" :disabled="index === projects.length - 1 || busy === project.id" @click="move(project, 'down')" aria-label="Move down">↓</button>
                     <button type="button" class="btn" :disabled="busy === project.id" @click="remove(project)">remove</button>
                 </span>
+            </div>
+            <div class="project-url">
+                <label :for="`p${project.id}-url`">link (optional, all languages)</label>
+                <input :id="`p${project.id}-url`" v-model="drafts[project.id].url" type="url" placeholder="https://" />
             </div>
             <div class="text-locales">
                 <div v-for="(label, locale) in locales" :key="locale" class="text-cell">
@@ -96,6 +104,10 @@ const rowsFor = (text) => Math.min(14, Math.max(3, Math.ceil((text ?? '').length
             <button v-if="!adding" type="button" class="btn" @click="adding = true">+ add project</button>
             <form v-else @submit.prevent="add">
                 <div class="project-head"><strong>New project</strong> <span class="muted">(added at the end)</span></div>
+                <div class="project-url">
+                    <label for="new-url">link (optional, all languages)</label>
+                    <input id="new-url" v-model="form.url" type="url" placeholder="https://" />
+                </div>
                 <div class="text-locales">
                     <div v-for="(label, locale) in locales" :key="locale" class="text-cell">
                         <label :for="`new-${locale}-title`">{{ locale }} · title</label>

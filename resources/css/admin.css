@@ -44,3 +44,5 @@ input:focus-visible, textarea:focus-visible { outline: 2px solid var(--link); ou
 /* projects editor */
 .project-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem; margin-bottom: .75rem; }
 .project-tools { margin-left: auto; display: flex; gap: .4rem; }
+.project-url { max-width: 32rem; margin-bottom: .75rem; }
+input[type='url'] { width: 100%; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--rule); border-radius: 4px; padding: .45rem .6rem; }

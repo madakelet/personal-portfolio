@@ -14,7 +14,7 @@ class HomePageTest extends TestCase
     {
         $this->get('/en')
             ->assertOk()
-            ->assertSeeInOrder(['Experience', 'Education', 'Projects', 'Side projects'])
+            ->assertSeeInOrder(['Experience', 'Education', 'Projects'])
             ->assertSee('Optimy (Brussels)')
             ->assertSee('2024 – present')
             ->assertSee('Mar 2023 – Dec 2023');
@@ -67,20 +67,11 @@ class HomePageTest extends TestCase
         }
     }
 
-    public function test_side_project_title_links_only_when_a_url_is_set(): void
-    {
-        config(['site.side_project_urls.nfl' => 'https://picks.example.test']);
-
-        $this->get('/en')
-            ->assertSee('href="https://picks.example.test"', false)
-            ->assertSee('<strong>Photography portfolio</strong>', false);
-    }
-
     public function test_dutch_page_is_translated(): void
     {
         $this->get('/nl')
             ->assertOk()
-            ->assertSeeInOrder(['Ervaring', 'Opleiding', 'Projecten', 'Nevenprojecten'])
+            ->assertSeeInOrder(['Ervaring', 'Opleiding', 'Projecten'])
             ->assertSee('2024 – heden')
             ->assertSee('mrt. 2023 – dec. 2023')
             ->assertSee('Over mij');
@@ -90,7 +81,7 @@ class HomePageTest extends TestCase
     {
         $this->get('/hu')
             ->assertOk()
-            ->assertSeeInOrder(['Tapasztalat', 'Tanulmányok', 'Projektek', 'Hobbiprojektek'])
+            ->assertSeeInOrder(['Tapasztalat', 'Tanulmányok', 'Projektek'])
             ->assertSee('2024 – jelenleg')
             ->assertSee('2023. márc. – 2023. dec.')
             ->assertSee('Rólam');

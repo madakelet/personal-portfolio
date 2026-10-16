@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * locale: ['en' => '...', 'nl' => '...', 'hu' => '...'].
  *
  * @property int $position
+ * @property string|null $url
  * @property array<string, string|null> $title
  * @property array<string, string|null> $meta
  * @property array<string, string|null> $body
  */
-#[Fillable(['position', 'title', 'meta', 'body'])]
+#[Fillable(['position', 'url', 'title', 'meta', 'body'])]
 class Project extends Model
 {
     public const FIELDS = ['title', 'meta', 'body'];

@@ -45,17 +45,4 @@ return [
             'body' => 'Drie jaar gestudeerd. Ik vertrok voor een voltijdse baan als ontwikkelaar en heb het diploma niet afgemaakt.',
         ],
     ],
-
-    'side_projects' => [
-        'nfl' => [
-            'title' => 'NFL pick\'em',
-            'meta' => '2023 – heden',
-            'body' => 'Een site op uitnodiging waar mijn vrienden en ik elke week de winnaar van elke NFL-wedstrijd voorspellen en over het hele seizoen strijden in een klassement. Wekelijkse formulieren, uitslagen, een scorebord en beheertools om het seizoen op te zetten. Laravel, Vue en Tailwind. Gestart in december 2023 en elk seizoen komen er nieuwe functies bij.',
-        ],
-        'photography' => [
-            'title' => 'Fotografieportfolio',
-            'meta' => '2026',
-            'body' => 'Een website voor het fotowerk van mijn vriendin: galerijen, een over-mijpagina en een manier voor klanten om contact op te nemen.',
-        ],
-    ],
 ];

@@ -23,7 +23,6 @@ return [
         'experience' => 'Experience',
         'education' => 'Education',
         'projects' => 'Projects',
-        'side_projects' => 'Side projects',
     ],
     'dates' => [
         // Carbon isoFormat pattern for "YYYY-MM" dates.
