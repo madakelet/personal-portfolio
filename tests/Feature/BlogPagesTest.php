@@ -10,14 +10,22 @@ class BlogPagesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_without_published_posts_there_is_no_blog_link_or_section(): void
+    public function test_the_blog_link_is_always_in_the_header(): void
+    {
+        $link = '#<a href="'.preg_quote(url('/en/blog'), '#').'"\s*(aria-current="page")?\s*>Blog</a>#';
+
+        $this->assertMatchesRegularExpression($link, $this->get('/en')->getContent());
+        preg_match($link, $this->get('/en/blog')->getContent(), $match);
+        $this->assertSame('aria-current="page"', $match[1] ?? null);
+    }
+
+    public function test_without_published_posts_the_home_page_has_no_blog_section(): void
     {
         Post::factory()->draft()->create(['title' => 'Secret draft']);
         Post::factory()->scheduled()->create(['title' => 'Coming soon']);
 
         $this->get('/en')
             ->assertDontSee('id="blog"', false)
-            ->assertDontSee(url('/en/blog'))
             ->assertDontSee('Secret draft')
             ->assertDontSee('Coming soon');
     }

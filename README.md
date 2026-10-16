@@ -45,8 +45,8 @@ Blog posts are written at `/admin/posts`, in Markdown, one language per
 post. Leave the publish date empty for a draft, or set a future date to
 schedule a post. The preview renders exactly like the site, including
 code highlighting (fenced blocks with a language, e.g. ```` ```php ````)
-and `>` quotes as callouts. The blog link in the top bar, the home page
-section and the RSS feed (`/feed.xml`) appear once a post is published.
+and `>` quotes as callouts. The Blog link is always in the top bar. The home page section and the
+RSS links (`/feed.xml`) appear once a post is published.
 
 Projects have their own page, `/admin/projects`, where they can be added,
 edited, reordered and removed. They live only in the `projects` table, not

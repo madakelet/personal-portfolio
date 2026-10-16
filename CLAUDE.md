@@ -119,5 +119,5 @@ prototype's blog posts are throwaway samples and were not ported.
 
 1. Fill in the placeholders listed above and add `public/cv.pdf`.
 2. Set up the site on Plesk (requirements in README).
-3. Write the first real post. The blog link, home section and RSS link
-   appear on their own once a post is published.
+3. Write the first real post. The Blog link is always in the top bar; the
+   home section and RSS link appear once a post is published.

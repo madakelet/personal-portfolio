@@ -2,9 +2,7 @@
     <a class="name" href="{{ route('home') }}">{{ __('ui.header_name') }}</a>
     <nav aria-label="{{ __('ui.nav.label') }}">
         <a href="{{ route('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>{{ __('ui.nav.about') }}</a>
-        @if ($hasPosts)
-            <a href="{{ route('blog.index') }}" @if (request()->routeIs('blog.*')) aria-current="page" @endif>{{ __('ui.nav.blog') }}</a>
-        @endif
+        <a href="{{ route('blog.index') }}" @if (request()->routeIs('blog.*')) aria-current="page" @endif>{{ __('ui.nav.blog') }}</a>
         @if ($cvUrl)
             <a href="{{ $cvUrl }}">{{ __('ui.nav.cv') }}</a>
         @endif

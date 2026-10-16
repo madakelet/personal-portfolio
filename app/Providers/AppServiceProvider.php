@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('cvUrl', file_exists(public_path($path)) ? asset($path) : null);
         });
 
-        // The Blog link and RSS link only show once something is published.
-        View::composer(['partials.header', 'partials.footer', 'partials.head-meta'], function ($view) {
-            // One query per request, shared by the three partials.
+        // The RSS links only show once something is published.
+        View::composer(['partials.footer', 'partials.head-meta'], function ($view) {
+            // One query per request, shared by both partials.
             $attributes = request()->attributes;
             if (! $attributes->has('hasPosts')) {
                 $attributes->set('hasPosts', Post::query()->published()->exists());
