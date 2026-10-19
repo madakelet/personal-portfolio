@@ -145,6 +145,15 @@
 
 /* Background particles (resources/js/particles.js): behind everything, never in the way. */
 @layer components {
-    .particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .particles {
+        position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+        /* Full strength in the side margins, fading to this opacity behind the text column (42rem wide). */
+        --particles-behind-text: 0.18;
+        mask-image: linear-gradient(to right,
+            #000 calc(50% - 21rem - 6rem),
+            rgb(0 0 0 / var(--particles-behind-text)) calc(50% - 21rem + 3rem),
+            rgb(0 0 0 / var(--particles-behind-text)) calc(50% + 21rem - 3rem),
+            #000 calc(50% + 21rem + 6rem));
+    }
     .wrap { position: relative; z-index: 1; }
 }
