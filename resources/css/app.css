@@ -142,3 +142,9 @@
     .hl-type, .hl-generic { font-weight: 500; }
     .hl-attribute { font-style: italic; }
 }
+
+/* Background particles (resources/js/particles.js): behind everything, never in the way. */
+@layer components {
+    .particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .wrap { position: relative; z-index: 1; }
+}

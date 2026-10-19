@@ -18,6 +18,7 @@
     @vite(['resources/css/app.css', 'resources/js/site.js'])
 </head>
 <body>
+    <canvas id="particles" class="particles" aria-hidden="true"></canvas>
     <div class="wrap">
         @include('partials.header')
         <main>

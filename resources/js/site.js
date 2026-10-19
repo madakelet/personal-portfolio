@@ -1,3 +1,5 @@
+import { startParticles } from './particles';
+
 // Theme toggle: auto -> light -> dark, stored per browser.
 // The <head> applies the stored value before paint; this keeps the button in sync.
 const root = document.documentElement;
@@ -22,3 +24,6 @@ applyTheme(order.includes(saved) ? saved : 'auto');
 button?.addEventListener('click', () => {
     applyTheme(order[(order.indexOf(button.textContent) + 1) % order.length]);
 });
+
+const particles = document.getElementById('particles');
+if (particles) startParticles(particles);

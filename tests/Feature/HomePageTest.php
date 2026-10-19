@@ -86,4 +86,11 @@ class HomePageTest extends TestCase
             ->assertSee('2023. márc. – 2023. dec.')
             ->assertSee('Rólam');
     }
+
+    public function test_public_pages_have_the_particle_background(): void
+    {
+        $this->get('/en')->assertSee('<canvas id="particles" class="particles" aria-hidden="true"></canvas>', false);
+        $this->get('/en/blog')->assertSee('id="particles"', false);
+        $this->get('/login')->assertDontSee('id="particles"', false);
+    }
 }
