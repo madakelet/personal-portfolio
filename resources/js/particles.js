@@ -43,8 +43,8 @@ export function startParticles(canvas) {
             y: Math.random() * height,
             vx: (Math.random() - 0.5) * MAX_SPEED * 2,
             vy: (Math.random() - 0.5) * MAX_SPEED * 2,
-            r: Math.random() * 1.2 + 0.6,
-            alpha: Math.random() * 0.35 + 0.2,
+            r: Math.random() * 1.4 + 1,
+            alpha: Math.random() * 0.4 + 0.45,
         }));
         draw();
     }
@@ -77,11 +77,11 @@ export function startParticles(canvas) {
 
         if (pointer.active) {
             context.strokeStyle = colours.line;
-            context.lineWidth = 0.6;
+            context.lineWidth = 0.9;
             for (const p of particles) {
                 const distance = Math.hypot(p.x - pointer.x, p.y - pointer.y);
                 if (distance < LINK_DISTANCE) {
-                    context.globalAlpha = (1 - distance / LINK_DISTANCE) * 0.35;
+                    context.globalAlpha = (1 - distance / LINK_DISTANCE) * 0.6;
                     context.beginPath();
                     context.moveTo(p.x, p.y);
                     context.lineTo(pointer.x, pointer.y);
